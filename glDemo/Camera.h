@@ -8,6 +8,11 @@
 #include <fstream>
 #include <iostream>
 
+#include "helper.h"
+#include <fstream>
+#include <iostream>
+#include "stringHelp.h"
+
 using namespace std;
 
 using namespace glm;
@@ -31,7 +36,7 @@ public:
 
 	//tick this camera
 	//TODO: possibly pass keyboard / mouse stuff down here for player controls?
-	virtual void Tick(float _dt);
+	virtual void Tick(float _dt, float _screenWidth, float _screenHeight);
 
 	//load camera info from the mainfest
 	virtual void Load(ifstream& _file);
@@ -78,5 +83,7 @@ protected:
 
 	string m_name;
 	string m_type;
+
+	float aspect_ratio;
 };
 

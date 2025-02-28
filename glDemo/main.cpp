@@ -50,8 +50,11 @@ int g_NumExamples = 3;
 Scene* g_Scene = nullptr;
 
 // Window size
-const unsigned int g_initWidth = 512;
-const unsigned int g_initHeight = 512;
+const unsigned int g_initWidth = 1024;
+const unsigned int g_initHeight = 1024;
+
+float _initWidth = g_initWidth;
+float _initHeight = g_initHeight;
 
 #pragma endregion
 
@@ -135,7 +138,7 @@ int main()
 	g_texDirLightShader = setupShaders(string("Assets\\Shaders\\texture-directional.vert"), string("Assets\\Shaders\\texture-directional.frag"));
 	g_flatColourShader = setupShaders(string("Assets\\Shaders\\flatColour.vert"), string("Assets\\Shaders\\flatColour.frag"));
 
-	g_mainCamera = new ArcballCamera(0.0f, 0.0f, 1.98595f, 55.0f, 1.0f, 0.1f, 500.0f);
+	g_mainCamera = new ArcballCamera("mainCamera", 0.0f, 0.0f, 1.98595f, 55.0f, 1.0f, 0.1f, 500.0f);
 
 	g_principleAxes = new CGPrincipleAxes();
 
@@ -317,7 +320,7 @@ void updateScene()
 		tDelta = (float)g_gameClock->gameTimeDelta();
 	}
 
-	g_Scene->Update(tDelta);
+	g_Scene->Update(tDelta, _initWidth, _initHeight);
 }
 
 
@@ -328,10 +331,14 @@ void updateScene()
 // Function to call when window resized
 void resizeWindow(GLFWwindow* _window, int _width, int _height)
 {
+
 	if (g_mainCamera) {
 
 		g_mainCamera->setAspect((float)_width / (float)_height);
 	}
+
+	_initWidth = _width;
+	_initHeight = _height;
 
 	glViewport(0, 0, _width, _height);		// Draw into entire window
 }
@@ -352,6 +359,11 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 		case GLFW_KEY_SPACE:
 			g_showing++;
 			g_showing = g_showing % g_NumExamples;
+			break;
+
+		case GLFW_KEY_LEFT_SHIFT:
+			
+			g_Scene->changeCamera();
 
 		default:
 		{

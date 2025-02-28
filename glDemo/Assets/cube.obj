@@ -1,0 +1,54 @@
+# Wavefront OBJ file
+
+# Vertex positions (excluding w component)
+v -1.0  1.0  1.0
+v -1.0  1.0 -1.0
+v  1.0  1.0 -1.0
+v  1.0  1.0  1.0
+v -1.0 -1.0  1.0
+v -1.0 -1.0 -1.0
+v  1.0 -1.0 -1.0
+v  1.0 -1.0  1.0
+v  1.0  1.0 -1.0
+v  1.0  1.0  1.0
+v  1.0 -1.0 -1.0
+v  1.0 -1.0  1.0
+v -1.0  1.0  1.0
+v -1.0  1.0 -1.0
+v -1.0 -1.0  1.0
+v -1.0 -1.0 -1.0
+v -1.0  1.0  1.0
+v  1.0  1.0  1.0
+v -1.0 -1.0  1.0
+v  1.0 -1.0  1.0
+v -1.0  1.0 -1.0
+v  1.0  1.0 -1.0
+v -1.0 -1.0 -1.0
+v  1.0 -1.0 -1.0
+
+mtllib cube.mtl  # Reference to the material file
+
+# Assign a material to each face group
+usemtl Red
+f 3 2 1
+f 4 3 1
+
+usemtl Green
+f 6 7 5
+f 7 8 5
+
+usemtl Blue
+f 9 10 12
+f 11 9 12
+
+usemtl Yellow
+f 13 14 16
+f 15 13 16
+
+usemtl Cyan
+f 18 17 19
+f 20 18 19
+
+usemtl Magenta
+f 21 22 23
+f 22 24 23

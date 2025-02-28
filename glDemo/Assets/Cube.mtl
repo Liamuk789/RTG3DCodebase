@@ -1,0 +1,23 @@
+# Red material
+newmtl Red
+Kd 1.0 0.0 0.0  # Diffuse color (red)
+
+# Green material
+newmtl Green
+Kd 0.0 1.0 0.0  # Diffuse color (green)
+
+# Blue material
+newmtl Blue
+Kd 0.0 0.0 1.0  # Diffuse color (blue)
+
+# Yellow material
+newmtl Yellow
+Kd 1.0 1.0 0.0  # Diffuse color (yellow)
+
+# Cyan material
+newmtl Cyan
+Kd 0.0 1.0 1.0  # Diffuse color (cyan)
+
+# Magenta material
+newmtl Magenta
+Kd 1.0 0.0 1.0  # Diffuse color (magenta)

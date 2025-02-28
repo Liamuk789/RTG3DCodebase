@@ -159,3 +159,13 @@ void Cube::render() {
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, m_numFaces * 3 , GL_UNSIGNED_INT, (const GLvoid*)0);
 }
+
+void Cube::Load(ifstream& _file)
+{
+	StringHelp::String(_file, "NAME", m_name);
+	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
+	StringHelp::Float3(_file, "ROT", m_rot.x, m_rot.y, m_rot.z);
+	StringHelp::Float3(_file, "SCALE", m_scale.x, m_scale.y, m_scale.z);
+	StringHelp::Float3(_file, "ROTINC", m_rot_incr.x, m_rot_incr.y, m_rot_incr.z);
+
+}

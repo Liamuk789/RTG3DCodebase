@@ -1,8 +1,9 @@
 #pragma once
 
 #include "core.h"
+#include "Model.h"
 
-class Cube {
+class Cube :public Model{
 
 private:
 
@@ -19,4 +20,6 @@ public:
 	~Cube();
 
 	void render();
+
+	void Load(ifstream& _file);
 };

@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <string>
 #include "RenderPass.h"
+#include "helper.h"
+#include <fstream>
+#include <iostream>
+#include "stringHelp.h"
 
 using namespace std;
 class Scene;
