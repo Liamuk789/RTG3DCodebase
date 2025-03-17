@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "Shader.h"
 #include "GameObjectFactory.h"
+#include "ArcballCamera.h"
 #include <assert.h>
 
 Scene::Scene()
@@ -135,35 +136,39 @@ Shader* Scene::GetShader(string _shaderName)
 }
 
 
-//Render Everything
-void Scene::Render()
-{
-	//TODO: Set up for the Opaque Render Pass will go here
-	//check out the example stuff back in main.cpp to see what needs setting up here
-	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
-	{
-		if ((*it)->GetRP() & RP_OPAQUE)// TODO: note the bit-wise operation. Why?
-		{
-			//set shader program using
-			GLuint SP = (*it)->GetShaderProg();
-			glUseProgram(SP);
+void Scene::Render() {
+    for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) {
+        //std::cout << "Rendering GameObject: " << (*it)->GetName() << std::endl;
+        if ((*it)->GetRP() & RP_OPAQUE) {
+            GLuint SP = (*it)->GetShaderProg();
+            glUseProgram(SP);
 
-			//set up for uniform shader values for current camera
-			m_useCamera->SetRenderValues(SP);
+            m_useCamera->SetRenderValues(SP);
+            SetShaderUniforms(SP);
 
-			//loop through setting up uniform shader values for anything else
-			SetShaderUniforms(SP);
+            if (m_useCamera && m_useCamera->GetType() == "ARCBALL") {
+                ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
+                if (arcballCam) {
+                    glm::mat4 projectionMatrix = arcballCam->projectionTransform();
+                    glm::mat4 viewMatrix = arcballCam->viewTransform();
 
-			//set any uniform shader values for the actual model
-			(*it)->PreRender();
+                    GLint pLocation;
+                    Helper::SetUniformLocation(SP, "viewMatrix", &pLocation);
+                    glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&viewMatrix);
 
-			//actually render the GameObject
-			(*it)->Render();
-		}
-	}
+                    Helper::SetUniformLocation(SP, "projMatrix", &pLocation);
+                    glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
+                }
+            }
 
-	//TODO: now do the same for RP_TRANSPARENT here
+            (*it)->PreRender();
+            (*it)->Render();
+        }
+    }
 }
+
+// Existing code...
+
 
 void Scene::SetShaderUniforms(GLuint _shaderprog)
 {
@@ -351,3 +356,28 @@ void Scene::changeCamera()
 
 	m_useCamera = *it;
 }
+
+void Scene::MouseMove(float dx, float dy)
+{
+	if (m_useCamera)
+	{
+		ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
+		if (arcballCam)
+		{
+			arcballCam->rotateCamera(dy, dx);
+		}
+	}
+}
+
+void Scene::scaleRadius(float _s)
+{
+	if (m_useCamera)
+	{
+		ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
+		if (arcballCam)
+		{
+			arcballCam->scaleRadius(_s);
+		}
+	}
+}
+

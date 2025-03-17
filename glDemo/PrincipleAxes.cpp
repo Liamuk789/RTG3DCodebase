@@ -76,6 +76,7 @@ static unsigned int indexArray[] = {
 
 CGPrincipleAxes::CGPrincipleAxes() {
 
+	m_type = "AXES";
 
 	m_numFaces = 10;
 
@@ -115,8 +116,16 @@ CGPrincipleAxes::~CGPrincipleAxes() {
 	glDeleteBuffers(1, &m_indexBuffer);
 }
 
+void CGPrincipleAxes::Load(ifstream& _file)
+{
+	StringHelp::String(_file, "NAME", m_name);
 
-void CGPrincipleAxes::render(bool _showZAxis) {
+}
+
+
+void CGPrincipleAxes::Render() 
+{
 	glBindVertexArray(m_vao);
-	glDrawElements(GL_LINES, m_numFaces * 3, GL_UNSIGNED_INT, (const GLvoid*)0);
+	glDrawElements(GL_LINES, m_numFaces * 2, GL_UNSIGNED_INT, (const GLvoid*)0);
+	glBindVertexArray(0);
 }

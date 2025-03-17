@@ -65,6 +65,8 @@ public:
 	//set up shader values for when using this camera
 	virtual void SetRenderValues(unsigned int _prog);
 
+	virtual void scaleRadius(float _s);
+
 protected:
 
 	//standard transforms needed to render with this a basic camera

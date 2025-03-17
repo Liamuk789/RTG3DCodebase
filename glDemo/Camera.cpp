@@ -67,3 +67,8 @@ void Camera::SetRenderValues(unsigned int _prog)
 	if (Helper::SetUniformLocation(_prog, "camPos", &loc))
 		glUniform3fv(loc, 1, glm::value_ptr(GetPos()));
 }
+
+void Camera::scaleRadius(float _s)
+{
+
+}

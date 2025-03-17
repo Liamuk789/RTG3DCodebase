@@ -9,6 +9,7 @@ using namespace std;
 
 class GameObject;
 class Camera;
+class ArcballCamera;
 class Light;
 class Model;
 class Texture;
@@ -35,6 +36,8 @@ public:
 	Model* GetModel(string _modelName);
 	Shader* GetShader(string _shaderName);
 
+	ArcballCamera* arcballCam;
+
 	//Render Everything
 	void Render();
 
@@ -48,6 +51,10 @@ public:
 	void Init();
 
 	void changeCamera();
+
+	void MouseMove(float dx, float dy);
+
+	void scaleRadius(float _s);
 
 protected:
 

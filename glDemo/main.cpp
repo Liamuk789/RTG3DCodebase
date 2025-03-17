@@ -229,10 +229,14 @@ void renderScene()
 		mat4 modelTransform = identity<mat4>();
 		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
 
-		g_principleAxes->render();
+		//g_principleAxes->Render();
 	}
 
-	switch (g_showing)
+
+	g_Scene->Render();
+
+
+	/*switch (g_showing)
 	{
 	case 0:
 	{
@@ -299,12 +303,12 @@ void renderScene()
 		mat4 modelTransform = glm::translate(identity<mat4>(), vec3(2.0, 0.0, 2.0));
 		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
 
-		g_cube->render();
+		g_cube->Render();
 		break;
 	}
 	case 2:
 		g_Scene->Render();
-	}
+	}*/
 
 }
 
@@ -395,6 +399,8 @@ void mouseMoveHandler(GLFWwindow* _window, double _xpos, double _ypos)
 		if (g_mainCamera)
 			g_mainCamera->rotateCamera(-dy, -dx);
 
+		g_Scene->MouseMove(-dx, -dy);
+
 		g_prevMouseX = _xpos;
 		g_prevMouseY = _ypos;
 	}
@@ -425,6 +431,12 @@ void mouseScrollHandler(GLFWwindow* _window, double _xoffset, double _yoffset) {
 		else if (_yoffset > 0.0)
 			g_mainCamera->scaleRadius(0.9f);
 	}
+
+	if (_yoffset < 0.0)
+		g_Scene->scaleRadius(1.1f);
+	else if (_yoffset > 0.0)
+		g_Scene->scaleRadius(0.9f);
+
 }
 
 void mouseEnterHandler(GLFWwindow* _window, int _entered) 
