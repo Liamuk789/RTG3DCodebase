@@ -77,7 +77,7 @@ AMB: 0.2 0.2 0.2
 DIR: 0.0 1.0 0.0
 }
 
-MODELS 5
+MODELS 6
 {
 TYPE: AI
 NAME: BEAST
@@ -92,6 +92,11 @@ FILE: Assets\\gsphere.obj
 TYPE: AI
 NAME: DUCK
 FILE: Assets\\duck\\rubber_duck_toy_4k.obj
+}
+{
+TYPE: AI
+NAME: SPHERE
+FILE: Assets\\gsphere.obj
 }
 {
 TYPE: CUBE
@@ -148,7 +153,7 @@ VERTFILE: Assets\\Shaders\\texture-directional.vert
 FRAGFILE: Assets\\Shaders\\texture-directional.frag
 }
 
-GAMEOBJECTS 5
+GAMEOBJECTS 6
 {
 TYPE: EXAMPLE
 NAME: BEAST
@@ -203,4 +208,15 @@ ROTINC: 0.0 0.0 0.0
 MODEL: AXES
 TEXTURE: ROCK
 SHADER: FLAT
+}
+{
+TYPE: EXAMPLE
+NAME: gsphere
+POS: 0.0 0.0 -2.0
+ROT: 0.0 0.0 0.0 
+SCALE: 1.0 1.0 1.0
+ROTINC: 0.0 0.0 0.0
+MODEL: SPHERE
+TEXTURE: ROCK
+SHADER: TEXDIR
 }
