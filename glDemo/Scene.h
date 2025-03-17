@@ -10,6 +10,7 @@ using namespace std;
 class GameObject;
 class Camera;
 class ArcballCamera;
+class FirstPersonCamera;
 class Light;
 class Model;
 class Texture;
@@ -37,6 +38,7 @@ public:
 	Shader* GetShader(string _shaderName);
 
 	ArcballCamera* arcballCam;
+	FirstPersonCamera* firstCam;
 
 	//Render Everything
 	void Render();

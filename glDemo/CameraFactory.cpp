@@ -1,6 +1,7 @@
 #include "CameraFactory.h"
 #include "Camera.h"
 #include "ArcballCamera.h"
+#include "FirstPersonCamera.h"
 #include <assert.h>
 
 using std::string;
@@ -16,10 +17,10 @@ Camera* CameraFactory::makeNewCam(string _type)
 	{
 		return new ArcballCamera();
 	}
-	//else if (_type == "1FP")
-	//{
-	//	return new Camera();
-	//}
+	else if (_type == "FIRST")
+	{
+		return new FirstPersonCamera();
+	}
 	else
 	{
 		printf("UNKNOWN CAMERA TYPE!");

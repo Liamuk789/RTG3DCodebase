@@ -10,6 +10,7 @@
 #include "Shader.h"
 #include "GameObjectFactory.h"
 #include "ArcballCamera.h"
+#include "FirstPersonCamera.h"
 #include <assert.h>
 
 Scene::Scene()
@@ -160,6 +161,20 @@ void Scene::Render() {
                     glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
                 }
             }
+			if (m_useCamera && m_useCamera->GetType() == "FIRST") {
+				FirstPersonCamera* firstCam = dynamic_cast<FirstPersonCamera*>(m_useCamera);
+				if (firstCam) {
+					glm::mat4 projectionMatrix = firstCam->projectionTransform();
+					glm::mat4 viewMatrix = firstCam->viewTransform();
+
+					GLint pLocation;
+					Helper::SetUniformLocation(SP, "viewMatrix", &pLocation);
+					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&viewMatrix);
+
+					Helper::SetUniformLocation(SP, "projMatrix", &pLocation);
+					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
+				}
+			}
 
             (*it)->PreRender();
             (*it)->Render();

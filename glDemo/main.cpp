@@ -368,6 +368,23 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 		case GLFW_KEY_LEFT_SHIFT:
 			
 			g_Scene->changeCamera();
+			break;
+
+		case GLFW_KEY_W:
+
+			break;
+
+		case GLFW_KEY_A:
+
+			break;
+
+		case GLFW_KEY_S:
+
+			break;
+
+		case GLFW_KEY_D:
+
+			break;
 
 		default:
 		{
