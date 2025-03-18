@@ -1,9 +1,5 @@
-
 #include "ArcballCamera.h"
 
-
-using namespace std;
-using namespace glm;
 
 //
 // Private API
@@ -54,11 +50,15 @@ ArcballCamera::ArcballCamera() {
 }
 
 
-// create a camera with orientation <theta, phi> representing Euler angles specified in degrees and Euclidean distance 'init_radius' from the origin.  The frustum / viewplane projection coefficients are defined in init_fovy, specified in degrees spanning the entire vertical field of view angle, init_aspect (w/h ratio), init_nearPlane and init_farPlane.  If init_farPlane = 0.0 (as determined by equalf) then the resulting frustum represents an infinite perspective projection.  This is the default
+//create a camera with orientation <theta, phi> representing Euler angles specified in degrees and Euclidean distance 'init_radius' from the origin.
+//The frustum / viewplane projection coefficients are defined in init_fovy, specified in degrees spanning the entire vertical field of view angle,
+//init_aspect (w/h ratio), init_nearPlane and init_farPlane.  If init_farPlane = 0.0 (as determined by equalf) then the resulting frustum
+// represents an infinite perspective projection.  This is the default
 ArcballCamera::ArcballCamera(string _name, float _theta, float _phi, float _radius, float _fovY, float _aspect, float _nearPlane, float _farPlane) {
 
 	m_type = "ARCBALL";
 	this->m_name = _name;
+
 	this->m_theta = _theta;
 	this->m_phi = _phi;
 	this->m_radius = std::max<float>(0.0f, _radius);
@@ -95,13 +95,11 @@ void ArcballCamera::Load(ifstream& _file)
 	StringHelp::Float(_file, "FOV", m_fov);
 	StringHelp::Float(_file, "NEAR", m_near);
 	StringHelp::Float(_file, "FAR", m_far);
+
 }
 
 void ArcballCamera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 {
-	
-	setAspect(_screenWidth / _screenHeight);
-	calculateDerivedValues();
 
 
 }

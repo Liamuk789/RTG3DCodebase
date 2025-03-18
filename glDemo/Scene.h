@@ -8,9 +8,11 @@
 using namespace std;
 
 class GameObject;
+
 class Camera;
 class ArcballCamera;
 class FirstPersonCamera;
+
 class Light;
 class Model;
 class Texture;
@@ -37,8 +39,7 @@ public:
 	Model* GetModel(string _modelName);
 	Shader* GetShader(string _shaderName);
 
-	ArcballCamera* arcballCam;
-	FirstPersonCamera* firstCam;
+	
 
 	//Render Everything
 	void Render();
@@ -54,9 +55,11 @@ public:
 
 	void changeCamera();
 
-	void MouseMove(float dx, float dy);
+	void mouseMove(float dx, float dy);
 
-	void scaleRadius(float _s);
+	void scrollZoom(float _s);
+
+	void moveCamera(glm::vec3 direction);
 
 protected:
 
@@ -75,6 +78,10 @@ protected:
 	std::list<GameObject*> m_GameObjects;
 
 	Camera* m_useCamera = nullptr; //current main camera in use
+	ArcballCamera* arcballCam = nullptr;
+	FirstPersonCamera* firstCam = nullptr;
+
+
 	int m_useCameraIndex = 0;
 	//TODO: pass down the same keyboard input from main so that we skip through all the cameras
 };

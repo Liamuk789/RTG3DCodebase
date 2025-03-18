@@ -5,12 +5,13 @@
 #include "LightFactory.h"
 #include "Light.h"
 #include "ModelFactory.h"
-#include "model.h"
+#include "Model.h"
 #include "Texture.h"
 #include "Shader.h"
 #include "GameObjectFactory.h"
 #include "ArcballCamera.h"
 #include "FirstPersonCamera.h"
+
 #include <assert.h>
 
 Scene::Scene()
@@ -372,19 +373,24 @@ void Scene::changeCamera()
 	m_useCamera = *it;
 }
 
-void Scene::MouseMove(float dx, float dy)
+void Scene::mouseMove(float dx, float dy)
 {
 	if (m_useCamera)
 	{
 		ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
+		FirstPersonCamera* firstCam = dynamic_cast<FirstPersonCamera*>(m_useCamera);
 		if (arcballCam)
 		{
 			arcballCam->rotateCamera(dy, dx);
 		}
+		if (firstCam)
+		{
+			firstCam->rotateCamera(dy, dx);
+		}
 	}
 }
 
-void Scene::scaleRadius(float _s)
+void Scene::scrollZoom(float _s)
 {
 	if (m_useCamera)
 	{
@@ -394,5 +400,20 @@ void Scene::scaleRadius(float _s)
 			arcballCam->scaleRadius(_s);
 		}
 	}
+}
+
+void Scene::moveCamera(glm::vec3 direction)
+{
+	if (m_useCamera)
+	{
+		FirstPersonCamera* firstCam = dynamic_cast<FirstPersonCamera*>(m_useCamera);
+		//OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
+		if (firstCam)
+		{
+			firstCam->Move(direction);
+
+		}
+	}
+
 }
 

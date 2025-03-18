@@ -52,7 +52,8 @@ public:
 	string m_name;
 
 	FirstPersonCamera();
-	~FirstPersonCamera();
+
+	FirstPersonCamera(string _name, float _theta, float _phi, float _radius, float _fovy, float _aspect, float _nearPlane, float _farPlane);
 
 	void Tick(float _dt, float _width, float _height);
 
