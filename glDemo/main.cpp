@@ -68,6 +68,7 @@ void mouseScrollHandler(GLFWwindow* _window, double _xoffset, double _yoffset);
 void mouseEnterHandler(GLFWwindow* _window, int _entered);
 
 KeyState updateInput(KeyState& keyState);
+void getMovement(KeyState key);
 
 
 
@@ -201,6 +202,7 @@ void updateScene()
 	}
 
 	g_Scene->Update(tDelta, _initWidth, _initHeight);
+	getMovement(m_keyState);
 }
 
 
@@ -243,21 +245,25 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 		case GLFW_KEY_W:
 			wDown = true;
 			updateInput(m_keyState);
+			getMovement(m_keyState);
 			break;
 
 		case GLFW_KEY_A:
 			aDown = true;
 			updateInput(m_keyState);
+			getMovement(m_keyState);
 			break;
 
 		case GLFW_KEY_S:
 			sDown = true;
 			updateInput(m_keyState);
+			getMovement(m_keyState);
 			break;
 
 		case GLFW_KEY_D:
 			dDown = true;
 			updateInput(m_keyState);
+			getMovement(m_keyState);
 			break;
 
 		default:
@@ -312,13 +318,56 @@ KeyState updateInput(KeyState& keyState)
 	return keyState;
 }
 
-
+void getMovement(KeyState key)
+{
+	if (key.forward)
+	{
+		glm::vec3 movement(0.0f, 0.0f, 1.0f);
+		g_Scene->moveCamera(movement * 0.003f);
+	}
+	if (key.left)
+	{
+		glm::vec3 movement(-1.0f, 0.0f, 0.0f);
+		g_Scene->moveCamera(movement * 0.003f);
+	}
+	if (key.backward)
+	{
+		glm::vec3 movement(0.0f, 0.0f, -1.0f);
+		g_Scene->moveCamera(movement * 0.003f);
+	}
+	if (key.right)
+	{
+		glm::vec3 movement(1.0f, 0.0f, 0.0f);
+		g_Scene->moveCamera(movement * 0.003f);
+	}
+	if (key.forLeft)
+	{
+		glm::vec3 movement(-1.0f, 0.0f, 1.0f);
+		g_Scene->moveCamera((movement / 2.0f) * 0.003f);
+	}
+	if (key.forRight)
+	{
+		glm::vec3 movement(1.0f, 0.0f, 1.0f);
+		g_Scene->moveCamera((movement/2.0f) * 0.003f);
+	}
+	if (key.backLeft)
+	{
+		glm::vec3 movement(-1.0f, 0.0f, -1.0f);
+		g_Scene->moveCamera((movement / 2.0f) * 0.003f);
+	}
+	if (key.backRight)
+	{
+		glm::vec3 movement(1.0f, 0.0f, -1.0f);
+		g_Scene->moveCamera((movement / 2.0f) * 0.003f);
+	}
+}
 
 
 
 
 void mouseMoveHandler(GLFWwindow* _window, double _xpos, double _ypos) 
 {
+
 	if (g_mouseDown) {
 
 		//float tDelta = gameClock->gameTimeDelta();

@@ -11,12 +11,16 @@
 #include "GameObjectFactory.h"
 #include "ArcballCamera.h"
 #include "FirstPersonCamera.h"
+#include "FPCamera.h"
 
 #include <assert.h>
 
+
+
+
 Scene::Scene()
 {
-
+	
 }
 
 Scene::~Scene()
@@ -28,6 +32,7 @@ Scene::~Scene()
 //tick all my Game Objects, lights and cameras
 void Scene::Update(float _dt, float _screenWidth, float _screenHeight)
 {
+
 	//update all lights
 	for (list<Light*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
 	{
@@ -373,12 +378,18 @@ void Scene::changeCamera()
 	m_useCamera = *it;
 }
 
+
+
+
+
+// Modify the Scene::mouseMove method to use the window member variable
 void Scene::mouseMove(float dx, float dy)
 {
 	if (m_useCamera)
 	{
 		ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
 		FirstPersonCamera* firstCam = dynamic_cast<FirstPersonCamera*>(m_useCamera);
+		FPCamera* fpCam = dynamic_cast<FPCamera*>(m_useCamera);
 		if (arcballCam)
 		{
 			arcballCam->rotateCamera(dy, dx);
@@ -386,6 +397,10 @@ void Scene::mouseMove(float dx, float dy)
 		if (firstCam)
 		{
 			firstCam->rotateCamera(dy, dx);
+		}
+		if (fpCam)
+		{
+			fpCam->rotateCamera(dy, dx);
 		}
 	}
 }
@@ -404,14 +419,21 @@ void Scene::scrollZoom(float _s)
 
 void Scene::moveCamera(glm::vec3 direction)
 {
+
+	
 	if (m_useCamera)
 	{
 		FirstPersonCamera* firstCam = dynamic_cast<FirstPersonCamera*>(m_useCamera);
+		FPCamera* fpCam = dynamic_cast<FPCamera*>(m_useCamera);
 		//OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
 		if (firstCam)
 		{
 			firstCam->Move(direction);
 
+		}
+		if (fpCam)
+		{
+			fpCam->Move(direction);
 		}
 	}
 

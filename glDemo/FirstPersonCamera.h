@@ -99,6 +99,8 @@ public:
 
 	void setFarPlaneDistance(float _farPlaneDistance);
 
+
+
 	// Accessor methods for derived values
 	//glm::vec4 getPosition(); // return the camera location in world coordinate space.  The radius of the camera's position in spherical coordinates is the l2 norm of the returned position vector
 	//glm::mat4 getOrientationBasis(); // return a const reference to the camera's orientation matrix in world coordinate space

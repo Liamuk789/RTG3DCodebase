@@ -1,8 +1,6 @@
 #include "FirstPersonCamera.h"
 
 
-
-
 void FirstPersonCamera::calculateDerivedValues()
 {
 	const float theta_ = glm::radians<float>(m_theta);
@@ -63,7 +61,11 @@ FirstPersonCamera::FirstPersonCamera(string _name, float _theta, float _phi, flo
 void FirstPersonCamera::Tick(float _dt, float _width, float _height)
 {
 	setAspect(_width / _height);
+	
+	//std::cout << "x = " << m_pos.x << " y = " << m_pos.y << " z = " << m_pos.z << std::endl;
+
 	calculateDerivedValues();
+
 }
 
 void FirstPersonCamera::Load(ifstream& _file)
@@ -81,7 +83,7 @@ void FirstPersonCamera::Load(ifstream& _file)
 
 void FirstPersonCamera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 {
-	
+
 }
 
 void FirstPersonCamera::SetRenderValues(unsigned int _prog)
@@ -181,6 +183,8 @@ void FirstPersonCamera::setFarPlaneDistance(float _farPlaneDistance)
 	this->m_farPlane = _farPlaneDistance;
 	calculateDerivedValues();
 }
+
+
 
 #pragma endregion
 

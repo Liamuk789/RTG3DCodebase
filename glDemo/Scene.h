@@ -12,6 +12,7 @@ class GameObject;
 class Camera;
 class ArcballCamera;
 class FirstPersonCamera;
+class FPCamera;
 
 class Light;
 class Model;
