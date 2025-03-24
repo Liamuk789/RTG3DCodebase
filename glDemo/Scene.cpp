@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "GameObject.h"
+#include "ExampleGO.h"
 #include "CameraFactory.h"
 #include "Camera.h"
 #include "LightFactory.h"
@@ -18,7 +19,7 @@
 
 Scene::Scene()
 {
-	
+
 }
 
 Scene::~Scene()
@@ -49,6 +50,27 @@ void Scene::Update(float _dt, float _screenWidth, float _screenHeight)
 		(*it)->Tick(_dt);
 	}
 }
+
+
+//void Scene::BuildLevel()
+//{
+//	std::vector<std::pair<std::string, glm::vec3>> objects = {
+//		{"CUBEHIGH", glm::vec3(0.0f, 3.0f, 3.0f)},
+//		{"CUBEHIGH", glm::vec3(1.0f, 3.0f, 3.0f)},
+//		{"CUBEHIGH", glm::vec3(2.0f, 3.0f, 3.0f)},
+//		// Add more objects and positions as needed
+//	};
+//
+//	for (const auto& obj : objects)
+//	{
+//		// Create a new instance of the object using the GameObjectFactory
+//		GameObject* gameObject = GameObjectFactory::makeNewGO(obj.first);
+//		gameObject->SetPosition(obj.second); // Use the setter method to set the position
+//		AddGameObject(gameObject);
+//	}
+//}
+
+
 
 void Scene::AddGameObject(GameObject* _new)
 {

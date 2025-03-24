@@ -3,6 +3,7 @@
 #include "stringHelp.h"
 #include "helper.h"
 
+
 using namespace glm;
 
 GameObject::GameObject()
@@ -51,4 +52,9 @@ void GameObject::Render()
 void GameObject::Init(Scene* _scene)
 {
 	//I have nothing to link up to
+}
+
+void GameObject::SetPosition(vec3 pos)
+{
+	m_pos = pos;
 }

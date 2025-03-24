@@ -7,6 +7,8 @@
 
 ExampleGO::ExampleGO()
 {
+	m_model = nullptr;
+	m_texture = (0);
 }
 
 ExampleGO::~ExampleGO()
@@ -53,4 +55,6 @@ void ExampleGO::Init(Scene* _scene)
 	m_ShaderProg = _scene->GetShader(m_ShaderName)->GetProg();
 	m_texture = _scene->GetTexture(m_TexName)->GetTexID();
 	m_model = _scene->GetModel(m_ModelName);
+	
 }
+

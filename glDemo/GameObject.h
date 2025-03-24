@@ -38,6 +38,9 @@ public:
 	//scene maybe needed for more involved cameras to connect to relvant GOs and lights/shaders etc
 	virtual void Init(Scene* _scene);
 
+	void SetPosition(vec3 pos);
+
+
 	//this GameObject should be drawn in THIS render pass
 	RenderPass GetRP() { return m_RP; }
 

@@ -29,6 +29,9 @@ public:
 	//tick all GOs
 	void Update(float _dt, float _screenWidth, float _screenHeight);
 
+	void BuildLevel();
+
+
 	//add this GO to my list
 	void AddGameObject(GameObject* _new);
 
