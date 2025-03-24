@@ -32,11 +32,13 @@ void FPCamera::Tick(float _dt, float _width, float _height)
 
 	const float theta_ = glm::radians<float>(m_theta);
 	const float phi_ = glm::radians<float>(m_phi);
+	
+	m_lookAt = m_pos + glm::vec3(sinf(phi_) * cosf(theta_), sinf(theta_), cosf(phi_) * cosf(theta_));
 
-	// Update m_lookAt based on the current orientation
-	m_lookAt = m_pos + glm::vec3(sinf(phi_) * cosf(theta_),sinf(theta_),cosf(phi_) * cosf(theta_));
 	m_viewMatrix = glm::lookAt(m_pos, m_lookAt, vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::radians(m_fov), aspect_ratio, m_near, m_far);
+	
+	
 }
 
 void FPCamera::Load(ifstream& _file)
@@ -83,13 +85,13 @@ void FPCamera::rotateCamera(float _dTheta, float _dPhi)
 	m_phi += _dPhi;
 
 	//THETA IS UP AND DOWN
-	//PHI IS LEFT AND RIGHT in simple terms
+	//PHI IS LEFT AND RIGHT in simple terms for my brain
 
 	//Restricting camera so it doesnt flip
-	if (m_theta > 89.0f)
-		m_theta = 89.0f;
-	if (m_theta < -89)
-		m_theta = -89;
+	if (m_theta > 65.0f)
+		m_theta = 65.0f;
+	if (m_theta < -65)
+		m_theta = -65;
 
 	calculateDerivedValues();
 
@@ -122,10 +124,24 @@ void FPCamera::Move(glm::vec3 _d)
 	m_lookAt += forward * _d.z;
 	m_lookAt += right * _d.x;
 
-	//Update the view matrix
-	m_viewMatrix = glm::lookAt(m_pos, m_lookAt, glm::vec3(0, 1, 0));
+	//Update the view matrix is done in Tick()
+	//m_viewMatrix = glm::lookAt(m_pos, m_lookAt, glm::vec3(0, 1, 0));
 
+	//Prints direction vectors every tick, also halves FPS
     //std::cout << "Forward vector: (" << forward.x << ", " << forward.y << ", " << forward.z << ")" << std::endl;
 }
+
+// return a const reference to the view transform matrix for the camera
+glm::mat4 FPCamera::viewTransform() {
+
+	return m_viewMatrix;
+}
+
+// return a const reference the projection transform for the camera
+glm::mat4 FPCamera::projectionTransform() {
+
+	return m_projectionMatrix;
+}
+
 
 #pragma endregion

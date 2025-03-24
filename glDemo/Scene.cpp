@@ -10,12 +10,10 @@
 #include "Shader.h"
 #include "GameObjectFactory.h"
 #include "ArcballCamera.h"
-#include "FirstPersonCamera.h"
 #include "FPCamera.h"
+#include "OrthoCamera.h"
 
 #include <assert.h>
-
-
 
 
 Scene::Scene()
@@ -153,6 +151,7 @@ void Scene::Render() {
             m_useCamera->SetRenderValues(SP);
             SetShaderUniforms(SP);
 
+
             if (m_useCamera && m_useCamera->GetType() == "ARCBALL") {
                 ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
                 if (arcballCam) {
@@ -167,11 +166,25 @@ void Scene::Render() {
                     glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
                 }
             }
-			if (m_useCamera && m_useCamera->GetType() == "FIRST") {
-				FirstPersonCamera* firstCam = dynamic_cast<FirstPersonCamera*>(m_useCamera);
+			if (m_useCamera && m_useCamera->GetType() == "FPC") {
+				FPCamera* firstCam = dynamic_cast<FPCamera*>(m_useCamera);
 				if (firstCam) {
 					glm::mat4 projectionMatrix = firstCam->projectionTransform();
 					glm::mat4 viewMatrix = firstCam->viewTransform();
+
+					GLint pLocation;
+					Helper::SetUniformLocation(SP, "viewMatrix", &pLocation);
+					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&viewMatrix);
+
+					Helper::SetUniformLocation(SP, "projMatrix", &pLocation);
+					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
+				}
+			}
+			if (m_useCamera && m_useCamera->GetType() == "ORTHO") {
+				OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
+				if (orthoCam) {
+					glm::mat4 projectionMatrix = orthoCam->projectionTransform();
+					glm::mat4 viewMatrix = orthoCam->viewTransform();
 
 					GLint pLocation;
 					Helper::SetUniformLocation(SP, "viewMatrix", &pLocation);
@@ -388,20 +401,21 @@ void Scene::mouseMove(float dx, float dy)
 	if (m_useCamera)
 	{
 		ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
-		FirstPersonCamera* firstCam = dynamic_cast<FirstPersonCamera*>(m_useCamera);
 		FPCamera* fpCam = dynamic_cast<FPCamera*>(m_useCamera);
+		OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
 		if (arcballCam)
 		{
 			arcballCam->rotateCamera(dy, dx);
-		}
-		if (firstCam)
-		{
-			firstCam->rotateCamera(dy, dx);
 		}
 		if (fpCam)
 		{
 			fpCam->rotateCamera(dy, dx);
 		}
+		if (orthoCam)
+		{
+			orthoCam->rotateCamera(dy, dx);
+		}
+
 	}
 }
 
@@ -410,6 +424,7 @@ void Scene::scrollZoom(float _s)
 	if (m_useCamera)
 	{
 		ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
+		OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
 		if (arcballCam)
 		{
 			arcballCam->scaleRadius(_s);
@@ -423,17 +438,15 @@ void Scene::moveCamera(glm::vec3 direction)
 	
 	if (m_useCamera)
 	{
-		FirstPersonCamera* firstCam = dynamic_cast<FirstPersonCamera*>(m_useCamera);
 		FPCamera* fpCam = dynamic_cast<FPCamera*>(m_useCamera);
-		//OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
-		if (firstCam)
-		{
-			firstCam->Move(direction);
-
-		}
+		OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
 		if (fpCam)
 		{
 			fpCam->Move(direction);
+		}
+		if (orthoCam)
+		{
+			orthoCam->Move(direction);
 		}
 	}
 

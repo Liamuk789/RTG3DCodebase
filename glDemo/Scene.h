@@ -11,8 +11,8 @@ class GameObject;
 
 class Camera;
 class ArcballCamera;
-class FirstPersonCamera;
 class FPCamera;
+class OrthoCamera;
 
 class Light;
 class Model;
@@ -80,7 +80,8 @@ protected:
 
 	Camera* m_useCamera = nullptr; //current main camera in use
 	ArcballCamera* arcballCam = nullptr;
-	FirstPersonCamera* firstCam = nullptr;
+	FPCamera* firstCam = nullptr;
+	OrthoCamera* orthoCam = nullptr;
 
 
 	int m_useCameraIndex = 0;

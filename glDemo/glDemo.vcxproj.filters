@@ -117,10 +117,10 @@
     <ClInclude Include="DirectionLight.h">
       <Filter>Scene Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FirstPersonCamera.h">
+    <ClInclude Include="FPCamera.h">
       <Filter>Scene Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FPCamera.h">
+    <ClInclude Include="OrthoCamera.h">
       <Filter>Scene Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -194,10 +194,10 @@
     <ClCompile Include="DirectionLight.cpp">
       <Filter>Scene Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FirstPersonCamera.cpp">
+    <ClCompile Include="FPCamera.cpp">
       <Filter>Scene Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FPCamera.cpp">
+    <ClCompile Include="OrthoCamera.cpp">
       <Filter>Scene Source Files</Filter>
     </ClCompile>
   </ItemGroup>

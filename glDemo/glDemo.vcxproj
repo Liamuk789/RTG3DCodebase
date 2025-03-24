@@ -142,7 +142,6 @@
     <ClInclude Include="ArcballCamera.h" />
     <ClInclude Include="CameraFactory.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="FirstPersonCamera.h" />
     <ClInclude Include="FPCamera.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="core.h" />
@@ -150,6 +149,7 @@
     <ClInclude Include="DirectionLight.h" />
     <ClInclude Include="ExampleGO.h" />
     <ClInclude Include="FreeImage\FreeImage.h" />
+    <ClInclude Include="OrthoCamera.h" />
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="GameObject.h" />
@@ -175,13 +175,13 @@
     <ClCompile Include="ArcballCamera.cpp" />
     <ClCompile Include="CameraFactory.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="FirstPersonCamera.cpp" />
     <ClCompile Include="FPCamera.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="DirectionLight.cpp" />
     <ClCompile Include="ExampleGO.cpp" />
+    <ClCompile Include="OrthoCamera.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
