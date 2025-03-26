@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+
 class Model;
 
 //replicate the examples from the main.cpp
