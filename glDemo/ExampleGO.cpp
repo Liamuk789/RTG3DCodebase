@@ -7,8 +7,7 @@
 
 ExampleGO::ExampleGO()
 {
-	m_model = nullptr;
-	m_texture = (0);
+	
 }
 
 ExampleGO::~ExampleGO()
@@ -47,7 +46,15 @@ void ExampleGO::PreRender()
 
 void ExampleGO::Render()
 {
-	m_model->Render();
+	if (m_model)
+	{
+		m_model->Render();
+	}
+	else
+	{
+		// Handle the error, log it, or provide a fallback
+		std::cerr << "Error: m_model is nullptr" << std::endl;
+	}
 }
 
 void ExampleGO::Init(Scene* _scene)

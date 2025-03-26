@@ -8,16 +8,27 @@
 class BuildDungeon : public ExampleGO
 {
 private:
+    
 
-	Scene* scene;
-	Shader* shader;
+    Scene* scene;
 
+	struct Position;
+
+	float x, y, z;
+
+	
 
 public:
-	BuildDungeon();
+
+	BuildDungeon(Scene* scene);
 	~BuildDungeon();
 
+
+    void Render();
+
 	void Init(Scene* _scene);
+
+
 
 protected:
 

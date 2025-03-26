@@ -203,6 +203,7 @@ void Scene::Render() {
 
             (*it)->PreRender();
             (*it)->Render();
+			
         }
     }
 }
@@ -378,6 +379,8 @@ void Scene::Init()
 		m_useCamera = (*m_Cameras.begin());
 		m_useCameraIndex = 0;
 	}
+
+	buildDungeon = new BuildDungeon(this);
 
 	//set up links between everything and GameObjects
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)

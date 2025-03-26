@@ -23,6 +23,11 @@ class Shader;
 //Note quite a proper scene graph but this contains data structures for all of our bits and pieces we want to draw
 class Scene
 {
+private:
+
+	BuildDungeon* buildDungeon;
+
+
 public:
 	Scene();
 	~Scene();
@@ -45,7 +50,6 @@ public:
 	Model* GetModel(string _modelName);
 	Shader* GetShader(string _shaderName);
 
-	BuildDungeon* buildDungeon;
 
 	
 
