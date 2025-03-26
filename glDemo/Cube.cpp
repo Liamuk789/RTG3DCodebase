@@ -83,7 +83,6 @@ static float colourArray[] = {
 };
 
 
-
 // Line list topology to render principle axes
 static unsigned int indexArray[] = {
 

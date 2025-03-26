@@ -123,9 +123,6 @@
     <ClInclude Include="OrthoCamera.h">
       <Filter>Scene Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BuildDungeon.h">
-      <Filter>Scene Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -201,9 +198,6 @@
       <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OrthoCamera.cpp">
-      <Filter>Scene Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BuildDungeon.cpp">
       <Filter>Scene Source Files</Filter>
     </ClCompile>
   </ItemGroup>

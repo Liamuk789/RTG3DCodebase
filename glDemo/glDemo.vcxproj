@@ -140,7 +140,6 @@
     <ClInclude Include="AIMesh.h" />
     <ClInclude Include="AIModel.h" />
     <ClInclude Include="ArcballCamera.h" />
-    <ClInclude Include="BuildDungeon.h" />
     <ClInclude Include="CameraFactory.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="FPCamera.h" />
@@ -174,7 +173,6 @@
     <ClCompile Include="AIMesh.cpp" />
     <ClCompile Include="AIModel.cpp" />
     <ClCompile Include="ArcballCamera.cpp" />
-    <ClCompile Include="BuildDungeon.cpp" />
     <ClCompile Include="CameraFactory.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="FPCamera.cpp" />
