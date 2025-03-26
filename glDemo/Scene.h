@@ -13,6 +13,7 @@ class Camera;
 class ArcballCamera;
 class FPCamera;
 class OrthoCamera;
+class BuildDungeon;
 
 class Light;
 class Model;
@@ -29,11 +30,12 @@ public:
 	//tick all GOs
 	void Update(float _dt, float _screenWidth, float _screenHeight);
 
-	void BuildLevel();
 
+	
 
 	//add this GO to my list
 	void AddGameObject(GameObject* _new);
+
 
 	//return a pointer to a given thing by its name
 	GameObject* GetGameObject(string _GOName);
@@ -42,6 +44,8 @@ public:
 	Texture* GetTexture(string _texName);
 	Model* GetModel(string _modelName);
 	Shader* GetShader(string _shaderName);
+
+	BuildDungeon* buildDungeon;
 
 	
 
