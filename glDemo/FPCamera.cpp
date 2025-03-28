@@ -107,7 +107,7 @@ void FPCamera::Move(glm::vec3 _d)
 	//forward.y = 0.0f;
 	
 
-	//Calculate right and forward directions
+	//Work out right and forward directions
 	glm::vec3 forward = glm::normalize(m_lookAt - m_pos);
 	//locking the Y so the camera cannot move up or down
 	forward.y = 0.0f;

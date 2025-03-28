@@ -157,8 +157,11 @@ void Scene::Render() {
             m_useCamera->SetRenderValues(SP);
             SetShaderUniforms(SP);
 
+			(*it)->PreRender();
+			(*it)->Render();
 
-            if (m_useCamera && m_useCamera->GetType() == "ARCBALL") {
+
+            /*if (m_useCamera && m_useCamera->GetType() == "ARCBALL") {
                 ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
                 if (arcballCam) {
                     glm::mat4 projectionMatrix = arcballCam->projectionTransform();
@@ -199,10 +202,9 @@ void Scene::Render() {
 					Helper::SetUniformLocation(SP, "projMatrix", &pLocation);
 					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
 				}
-			}
+			}*/
 
-            (*it)->PreRender();
-            (*it)->Render();
+            
 			
         }
     }
@@ -344,6 +346,7 @@ void Scene::Load(ifstream& _file)
 		GameObject* newGO = GameObjectFactory::makeNewGO(type);
 		newGO->Load(_file);
 
+
 		m_GameObjects.push_back(newGO);
 
 		//skip }
@@ -380,7 +383,7 @@ void Scene::Init()
 		m_useCameraIndex = 0;
 	}
 
-	buildDungeon = new BuildDungeon(this);
+	//buildDungeon = new BuildDungeon(this);
 
 	//set up links between everything and GameObjects
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)

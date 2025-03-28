@@ -97,9 +97,10 @@ void OrthoCamera::rotateCamera(float _dTheta, float _dPhi)
 
 void OrthoCamera::Move(glm::vec3 _d)
 {
-	// Calculate right and forward directions
+	//Work out right and forward directions
 	glm::vec3 forward = glm::normalize(m_lookAt - m_pos);
-	forward.y = 0.0f;  // Lock movement to XZ plane
+	//stop movement along the Y
+	forward.y = 0.0f; 
 	forward = glm::normalize(forward);
 
 	glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));

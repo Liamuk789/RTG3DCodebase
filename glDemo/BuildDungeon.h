@@ -12,16 +12,15 @@ private:
 
     Scene* scene;
 
-	struct Position;
-
-	float x, y, z;
 
 	
 
 public:
 
-	BuildDungeon(Scene* scene);
+	BuildDungeon();
 	~BuildDungeon();
+
+	void Load(ifstream& _file);
 
 
     void Render();
@@ -35,5 +34,12 @@ protected:
 	string m_ShaderName = "TEXDIR";
 	string m_TexName = "WALL";
 	string m_ModelName = "CUBEHIGH";
+
+	vec3		m_loc;
+	vec3		m_walls;
+	float		m_noWalls;
+
+	std::vector<vec3>roomWallLocations;
+	
 
 };
