@@ -33,6 +33,8 @@ OrthoCamera::OrthoCamera()
 	m_aspect = 1.0f;
 	m_nearPlane = 0.1f;
 	m_farPlane = 500.0f;
+	//added speed here as Ortho was movin too slow
+	cam_Speed = 3.0f;
 
 	calculateDerivedValues();
 }
@@ -106,8 +108,8 @@ void OrthoCamera::Move(glm::vec3 _d)
 	glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));
 
 	// Move both the position and the lookAt point
-	m_pos += forward * _d.z + right * _d.x;
-	m_lookAt += forward * _d.z + right * _d.x;
+	m_pos += (forward * _d.z + right * _d.x) * cam_Speed;
+	m_lookAt += (forward * _d.z + right * _d.x) * cam_Speed;
 
 	calculateDerivedValues();
 }

@@ -20,6 +20,7 @@ public:
 	BuildDungeon();
 	~BuildDungeon();
 
+
 	void Load(ifstream& _file);
 
 
@@ -33,13 +34,15 @@ protected:
 
 	string m_ShaderName = "TEXDIR";
 	string m_TexName = "WALL";
-	string m_ModelName = "CUBEHIGH";
+	string m_ModelName = "CUBELOW";
 
-	vec3		m_loc;
 	vec3		m_walls;
 	float		m_noWalls;
+	float		m_noOrigin;
 
-	std::vector<vec3>roomWallLocations;
+	std::vector<vec3>roomFinalWallLocations;
+	vec3		origin;
+	vec3		wallLocs;
 	
 
 };

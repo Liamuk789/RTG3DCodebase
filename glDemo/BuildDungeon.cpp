@@ -40,9 +40,10 @@
 
 BuildDungeon::BuildDungeon()
 {
-    m_loc = glm::vec3(0.0f,0.0f,0.0f);
+   
     m_noWalls = 0.0f;
-
+    m_noOrigin = 0.0f;
+    
 }
 
 BuildDungeon::~BuildDungeon()
@@ -50,23 +51,121 @@ BuildDungeon::~BuildDungeon()
    
 }
 
+std::vector<glm::vec3> Origins =
+{
+
+};
+
+std::vector<glm::vec3> WallLocation =
+{
+
+};
+
 void BuildDungeon::Load(ifstream& _file)
 {
     ExampleGO::Load(_file);
+    StringHelp::Float(_file, "NOORIGINS", m_noOrigin);
+    for (int i = 0; i < m_noOrigin; ++i)
+    {
+        StringHelp::Float3(_file, "ORIGINS", origin.x, origin.y, origin.z);
+        Origins.push_back(origin);
+    }
+
     StringHelp::Float(_file, "NOWALLS", m_noWalls);
-
-    // Allocate memory for wall locations
-    vec3* m_walls = new vec3(0.0, 0.0, 0.0);
-
-    // Read all wall locations
     for (int i = 0; i < m_noWalls; ++i)
     {
-        vec3 wallLocation;
-        StringHelp::Float3(_file, "WALLLOC", wallLocation.x, wallLocation.y, wallLocation.z);
-
-        // Add the wall location to the vector
-        roomWallLocations.push_back(wallLocation);
+        StringHelp::Float3(_file, "WALLLOC", wallLocs.x, wallLocs.y, wallLocs.z);
+        WallLocation.push_back(wallLocs);
     }
+    
+
+
+    if (m_name == "DUNGEONMAIN")
+    {
+        for (vec3 origin : Origins)
+        {
+            // Read all wall locations
+            for (vec3 wall : WallLocation)
+            {
+                vec3 newOrigin = wall + origin;
+
+                std::cout << "wall = " << wall.y << " origin = " << origin.y << " New Origin = " << newOrigin.y << std::endl;
+
+                // Add the wall location to the vector
+                roomFinalWallLocations.push_back(newOrigin);
+            }
+        }
+        Origins.clear();
+        WallLocation.clear();
+    }
+
+    if (m_name == "DUNGEONHCORRIDOR")
+    {
+        for (vec3 origin : Origins)
+        {
+            // Read all wall locations
+            for (vec3 wall : WallLocation)
+            {
+                vec3 newOrigin = wall + origin;
+
+                std::cout << "wall = " << wall.x << " origin = " << origin.x << " New Origin = " << newOrigin.x << std::endl;
+
+                // Add the wall location to the vector
+                roomFinalWallLocations.push_back(newOrigin);
+            }
+        }
+        Origins.clear();
+        WallLocation.clear();
+    }
+
+
+    if (m_name == "DUNGEONVCORRIDOR")
+    {
+        for (vec3 origin : Origins)
+        {
+            // Read all wall locations
+            for (vec3 wall : WallLocation)
+            {
+                vec3 newOrigin = wall + origin;
+
+                std::cout << "wall = " << wall.z << " origin = " << origin.z << " New Origin = " << newOrigin.z << std::endl;
+
+                // Add the wall location to the vector
+                roomFinalWallLocations.push_back(newOrigin);
+            }
+        }
+        Origins.clear();
+        WallLocation.clear();
+    }
+
+    if (m_name == "DUNGEONCAP")
+    {
+        for (vec3 origin : Origins)
+        {
+            // Read all wall locations
+            for (vec3 wall : WallLocation)
+            {
+                vec3 newOrigin = wall + origin;
+
+                std::cout << "wall = " << wall.z << " origin = " << origin.z << " New Origin = " << newOrigin.z << std::endl;
+
+                // Add the wall location to the vector
+                roomFinalWallLocations.push_back(newOrigin);
+            }
+        }
+        Origins.clear();
+        WallLocation.clear();
+    }
+
+    //// Read all wall locations
+    //for (int i = 0; i < m_noWalls; ++i)
+    //{
+    //    vec3 wallLocation;
+    //    StringHelp::Float3(_file, "WALLLOC", wallLocation.x, wallLocation.y, wallLocation.z);
+
+    //    // Add the wall location to the vector
+    //    roomWallLocations.push_back(wallLocation);
+    //}
 
     // Store the wall locations in a member variable if needed
     //this->m_walls = m_walls;
@@ -76,7 +175,7 @@ void BuildDungeon::Load(ifstream& _file)
 
 void BuildDungeon::Render()
 {
-    for (const auto& position : roomWallLocations)
+    for (const auto& position : roomFinalWallLocations)
     {
 
         // Create modelMatrix for position

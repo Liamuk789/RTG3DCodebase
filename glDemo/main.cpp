@@ -310,11 +310,6 @@ KeyState updateInput(KeyState& keyState)
 	keyState.backward = sDown;
 	keyState.right = dDown;
 
-	keyState.forLeft = keyState.forward && keyState.left;
-	keyState.forRight = keyState.forward && keyState.right;
-	keyState.backLeft = keyState.backward && keyState.left;
-	keyState.backRight = keyState.backward && keyState.right;
-
 	return keyState;
 }
 
@@ -340,26 +335,7 @@ void getMovement(KeyState key)
 		glm::vec3 movement(1.0f, 0.0f, 0.0f);
 		g_Scene->moveCamera(movement * 0.003f);
 	}
-	if (key.forLeft)
-	{
-		glm::vec3 movement(-1.0f, 0.0f, 1.0f);
-		g_Scene->moveCamera((movement / 2.0f) * 0.003f);
-	}
-	if (key.forRight)
-	{
-		glm::vec3 movement(1.0f, 0.0f, 1.0f);
-		g_Scene->moveCamera((movement/2.0f) * 0.003f);
-	}
-	if (key.backLeft)
-	{
-		glm::vec3 movement(-1.0f, 0.0f, -1.0f);
-		g_Scene->moveCamera((movement / 2.0f) * 0.003f);
-	}
-	if (key.backRight)
-	{
-		glm::vec3 movement(1.0f, 0.0f, -1.0f);
-		g_Scene->moveCamera((movement / 2.0f) * 0.003f);
-	}
+	
 }
 
 

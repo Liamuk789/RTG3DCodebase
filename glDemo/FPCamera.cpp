@@ -22,6 +22,7 @@ FPCamera::FPCamera()
 	m_aspect = 1.0f;
 	m_nearPlane = 0.1f;
 	m_farPlane = 500.0f;
+	cam_Speed = 2.0f;
 	
 }
 
@@ -117,8 +118,8 @@ void FPCamera::Move(glm::vec3 _d)
 	glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));
 
 	//Update the position
-	m_pos += forward * _d.z;
-	m_pos += right * _d.x;
+	m_pos += forward * _d.z * cam_Speed;
+	m_pos += right * _d.x * cam_Speed;
 
 	//Update the lookat also to keep correct direction
 	m_lookAt += forward * _d.z;

@@ -24,6 +24,7 @@ private:
 
 	// Projection / frustum values
 	float				m_fovY, m_aspect, m_nearPlane, m_farPlane;
+	float				cam_Speed;
 
 public:
 
