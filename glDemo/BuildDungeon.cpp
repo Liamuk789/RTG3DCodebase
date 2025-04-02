@@ -1,6 +1,6 @@
 #include "BuildDungeon.h"
 
-
+//previous hard coded wall postions
 //const std::vector<glm::vec3> bigRoomBP = 
 //{
 //    //bottom
@@ -56,7 +56,7 @@ std::vector<glm::vec3> Origins =
 
 };
 
-std::vector<glm::vec3> WallLocation =
+std::vector<glm::vec3> ObjLocation =
 {
 
 };
@@ -71,11 +71,11 @@ void BuildDungeon::Load(ifstream& _file)
         Origins.push_back(origin);
     }
 
-    StringHelp::Float(_file, "NOWALLS", m_noWalls);
+    StringHelp::Float(_file, "NOOBJ", m_noWalls);
     for (int i = 0; i < m_noWalls; ++i)
     {
-        StringHelp::Float3(_file, "WALLLOC", wallLocs.x, wallLocs.y, wallLocs.z);
-        WallLocation.push_back(wallLocs);
+        StringHelp::Float3(_file, "OBJLOC", objLocs.x, objLocs.y, objLocs.z);
+        ObjLocation.push_back(objLocs);
     }
     
 
@@ -85,18 +85,17 @@ void BuildDungeon::Load(ifstream& _file)
         for (vec3 origin : Origins)
         {
             // Read all wall locations
-            for (vec3 wall : WallLocation)
+            for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
-                std::cout << "wall = " << wall.y << " origin = " << origin.y << " New Origin = " << newOrigin.y << std::endl;
 
                 // Add the wall location to the vector
-                roomFinalWallLocations.push_back(newOrigin);
+                finalRoomWallLocations.push_back(newOrigin);
             }
         }
         Origins.clear();
-        WallLocation.clear();
+        ObjLocation.clear();
     }
 
     if (m_name == "DUNGEONHCORRIDOR")
@@ -104,18 +103,17 @@ void BuildDungeon::Load(ifstream& _file)
         for (vec3 origin : Origins)
         {
             // Read all wall locations
-            for (vec3 wall : WallLocation)
+            for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
-                std::cout << "wall = " << wall.x << " origin = " << origin.x << " New Origin = " << newOrigin.x << std::endl;
 
                 // Add the wall location to the vector
-                roomFinalWallLocations.push_back(newOrigin);
+                finalRoomWallLocations.push_back(newOrigin);
             }
         }
         Origins.clear();
-        WallLocation.clear();
+        ObjLocation.clear();
     }
 
 
@@ -124,18 +122,16 @@ void BuildDungeon::Load(ifstream& _file)
         for (vec3 origin : Origins)
         {
             // Read all wall locations
-            for (vec3 wall : WallLocation)
+            for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
-                std::cout << "wall = " << wall.z << " origin = " << origin.z << " New Origin = " << newOrigin.z << std::endl;
-
                 // Add the wall location to the vector
-                roomFinalWallLocations.push_back(newOrigin);
+                finalRoomWallLocations.push_back(newOrigin);
             }
         }
         Origins.clear();
-        WallLocation.clear();
+        ObjLocation.clear();
     }
 
     if (m_name == "DUNGEONCAP")
@@ -143,49 +139,62 @@ void BuildDungeon::Load(ifstream& _file)
         for (vec3 origin : Origins)
         {
             // Read all wall locations
-            for (vec3 wall : WallLocation)
+            for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
-                std::cout << "wall = " << wall.z << " origin = " << origin.z << " New Origin = " << newOrigin.z << std::endl;
-
                 // Add the wall location to the vector
-                roomFinalWallLocations.push_back(newOrigin);
+                finalRoomWallLocations.push_back(newOrigin);
             }
         }
         Origins.clear();
-        WallLocation.clear();
+        ObjLocation.clear();
     }
 
-    //// Read all wall locations
-    //for (int i = 0; i < m_noWalls; ++i)
-    //{
-    //    vec3 wallLocation;
-    //    StringHelp::Float3(_file, "WALLLOC", wallLocation.x, wallLocation.y, wallLocation.z);
+    if (m_name == "TORCH")
+    {
+        for (vec3 origin : Origins)
+        {
+            // Read all wall locations
+            for (vec3 wall : ObjLocation)
+            {
+                vec3 newOrigin = wall + origin;
 
-    //    // Add the wall location to the vector
-    //    roomWallLocations.push_back(wallLocation);
-    //}
-
-    // Store the wall locations in a member variable if needed
-    //this->m_walls = m_walls;
-
+                // Add the wall location to the vector
+                finalRoomWallLocations.push_back(newOrigin);
+            }
+        }
+        Origins.clear();
+        ObjLocation.clear();
+    }
 
 }
 
 void BuildDungeon::Render()
 {
-    for (const auto& position : roomFinalWallLocations)
+    for (const auto& position : finalRoomWallLocations)
     {
-
+        
         // Create modelMatrix for position
         m_worldMatrix = glm::translate(glm::mat4(1.0f), (position));
-        m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(1.0, 1.5, 1.0));
+        m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(m_scale));
 
         GameObject::PreRender();
         ExampleGO::Render();
     
     }
+
+    //for (const auto& position : finalTorchLocations)
+    //{
+    //    
+    //    // Create modelMatrix for position
+    //    m_worldMatrix = glm::translate(glm::mat4(1.0f), (position));
+    //    m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(m_scale));
+
+    //    GameObject::PreRender();
+    //    ExampleGO::Render();
+
+    //}
 
     /*vec3* m_walls = new vec3[m_noWalls];
 

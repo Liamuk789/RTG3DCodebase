@@ -32,17 +32,17 @@ public:
 
 protected:
 
-	string m_ShaderName = "TEXDIR";
-	string m_TexName = "WALL";
-	string m_ModelName = "CUBELOW";
+	//string m_ShaderName = "TEXDIR";
+	//string m_TexName = "WALL";
+	//string m_ModelName = "CUBELOW";
 
-	vec3		m_walls;
 	float		m_noWalls;
 	float		m_noOrigin;
 
-	std::vector<vec3>roomFinalWallLocations;
+	std::vector<vec3>finalRoomWallLocations;
+	std::vector<vec3>finalTorchLocations;
 	vec3		origin;
-	vec3		wallLocs;
+	vec3		objLocs;
 	
 
 };

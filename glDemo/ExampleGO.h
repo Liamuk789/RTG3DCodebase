@@ -28,9 +28,12 @@ public:
 
 protected:
 
-	string m_ShaderName, m_TexName, m_ModelName;
+	string m_ShaderName, m_TexName, m_ModelName;// , m_NormalName;
 
 	GLuint m_texture;
+	//GLuint m_normal;
 	Model* m_model;
+
+	//bool normalNeeded;
 };
 

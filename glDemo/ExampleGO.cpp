@@ -7,7 +7,7 @@
 
 ExampleGO::ExampleGO()
 {
-	
+
 }
 
 ExampleGO::~ExampleGO()
@@ -20,6 +20,15 @@ void ExampleGO::Load(ifstream& _file)
 	StringHelp::String(_file, "MODEL", m_ModelName);
 	StringHelp::String(_file, "TEXTURE", m_TexName);
 	StringHelp::String(_file, "SHADER", m_ShaderName);
+	//StringHelp::String(_file, "NORMAL", m_NormalName);
+	
+	/*if (m_NormalName == "NULL")
+	{
+		normalNeeded = false;
+	}
+	else
+		normalNeeded = true;*/
+
 
 }
 
@@ -40,8 +49,11 @@ void ExampleGO::PreRender()
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
 	//TODO: this does sort of replicate stuff in the AIMesh class, could we make them more compatible.
+	
+	//DO NORMAL MAPS
+	
+	
 
-	//TODO: NORMAL MAPS!
 }
 
 void ExampleGO::Render()
@@ -62,6 +74,12 @@ void ExampleGO::Init(Scene* _scene)
 	m_ShaderProg = _scene->GetShader(m_ShaderName)->GetProg();
 	m_texture = _scene->GetTexture(m_TexName)->GetTexID();
 	m_model = _scene->GetModel(m_ModelName);
+
+	/*if (normalNeeded)
+	{
+		m_normal = _scene->GetTexture(m_NormalName)->GetTexID();
+	}*/
+	
 	
 }
 
