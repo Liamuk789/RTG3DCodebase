@@ -134,7 +134,23 @@ void BuildDungeon::Load(ifstream& _file)
         ObjLocation.clear();
     }
 
-    if (m_name == "DUNGEONCAP")
+    if (m_name == "DUNGEONGLASSH")
+    {
+        for (vec3 origin : Origins)
+        {
+            // Read all wall locations
+            for (vec3 wall : ObjLocation)
+            {
+                vec3 newOrigin = wall + origin;
+
+                // Add the wall location to the vector
+                finalRoomWallLocations.push_back(newOrigin);
+            }
+        }
+        Origins.clear();
+        ObjLocation.clear();
+    }
+    if (m_name == "DUNGEONGLASSV")
     {
         for (vec3 origin : Origins)
         {
