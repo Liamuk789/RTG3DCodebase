@@ -1,7 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
-class Model;
+class AIModel;
+
 
 //replicate the examples from the main.cpp
 //each Game Object has a Mesh, a texture and a shader
@@ -32,7 +33,7 @@ protected:
 
 	GLuint m_texture;
 	//GLuint m_normal;
-	Model* m_model;
+	AIModel* m_model;
 
 	//bool normalNeeded;
 };

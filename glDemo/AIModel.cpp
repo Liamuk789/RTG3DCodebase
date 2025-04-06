@@ -26,3 +26,13 @@ void AIModel::Render()
 {
 	m_AImesh->render();
 }
+
+void AIModel::addTexture(GLuint _textureID)
+{
+	m_AImesh->addTexture(_textureID);
+}
+
+void AIModel::addNormalMap(GLuint _normalMapID)
+{
+	m_AImesh->addNormalMap(_normalMapID);
+}

@@ -4,7 +4,7 @@
 #include "Cube.h"
 #include "PrincipleAxes.h"
 
-Model* ModelFactory::makeNewModel(std::string _type)
+AIModel* ModelFactory::makeNewModel(std::string _type)
 {
 	printf("TYPE: %s \n", _type.c_str());
 	//There is no point in making one of the model base class 

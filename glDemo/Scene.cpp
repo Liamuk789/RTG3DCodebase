@@ -6,7 +6,7 @@
 #include "LightFactory.h"
 #include "Light.h"
 #include "ModelFactory.h"
-#include "Model.h"
+#include "AIModel.h"
 #include "Texture.h"
 #include "Shader.h"
 #include "GameObjectFactory.h"
@@ -118,9 +118,9 @@ Texture* Scene::GetTexture(string _texName)
 	return nullptr;
 }
 
-Model* Scene::GetModel(string _modelName)
+AIModel* Scene::GetModel(string _modelName)
 {
-	for (list<Model*>::iterator it = m_Models.begin(); it != m_Models.end(); it++)
+	for (list<AIModel*>::iterator it = m_Models.begin(); it != m_Models.end(); it++)
 	{
 		if ((*it)->GetName() == _modelName)
 		{
@@ -284,7 +284,7 @@ void Scene::Load(ifstream& _file)
 
 		string type;
 		_file >> dummy >> type; _file.ignore(256, '\n');
-		Model* newModel = ModelFactory::makeNewModel(type);
+		AIModel* newModel = ModelFactory::makeNewModel(type);
 		newModel->Load(_file);
 
 		m_Models.push_back(newModel);

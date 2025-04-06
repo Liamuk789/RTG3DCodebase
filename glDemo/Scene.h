@@ -16,7 +16,7 @@ class OrthoCamera;
 class BuildDungeon;
 
 class Light;
-class Model;
+class AIModel;
 class Texture;
 class Shader;
 
@@ -47,7 +47,7 @@ public:
 	Camera* GetCamera(string _camName);
 	Light* GetLight(string _lightName);
 	Texture* GetTexture(string _texName);
-	Model* GetModel(string _modelName);
+	AIModel* GetModel(string _modelName);
 	Shader* GetShader(string _shaderName);
 
 
@@ -84,7 +84,7 @@ protected:
 	int m_numShaders = 0;
 	std::list<Camera*>    m_Cameras;
 	std::list<Light*>    m_Lights;
-	std::list<Model*>		m_Models;
+	std::list<AIModel*>		m_Models;
 	std::list<Texture*>		m_Textures;
 	std::list<Shader*>		m_Shaders;
 	std::list<GameObject*> m_GameObjects;
