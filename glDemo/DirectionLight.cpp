@@ -17,7 +17,7 @@ DirectionLight::~DirectionLight()
 void DirectionLight::Load(ifstream& _file)
 {
 	Light::Load(_file);
-	StringHelp::Float3(_file, "DIRECTION", m_direction.x, m_direction.y, m_direction.z);
+	StringHelp::Float3(_file, "DIR", m_direction.x, m_direction.y, m_direction.z);
 }
 
 void DirectionLight::SetRenderValues(unsigned int _prog)
