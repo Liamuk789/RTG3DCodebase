@@ -19,8 +19,8 @@ class OrthoCamera : public Camera
 private:
 
 	float				m_height, m_width;
-	float				m_theta, m_phi; // spherical coordinates theta (rotation around the x axis) and phi (rotation around the y axis).  <theta, phi> are stored in degrees.  Zero degree rotation on <theta, phi> places the camera on the +z axis.  A positive phi represents counter-clockwise rotation around the y axis in a right-hand coordinate system.  A positive theta represents a counter-clockwise rotation around the x axis in a right-handed coordinate system
-	float				m_radius; // radius of the camera's spherical coordinate model.  This lies in the interval [0, +inf]
+	float				m_theta, m_phi;
+	float				m_radius;
 	float				m_fovY, m_aspect, m_nearPlane, m_farPlane;
 	float				cam_Speed;
 

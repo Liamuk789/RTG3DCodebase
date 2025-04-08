@@ -6,11 +6,8 @@
 PointLight::PointLight()
 {
 	m_type = "POINT";
-	m_pos = vec3(0.0, 1.0, 0.0);
-	m_direction = vec3(0.0, 1.0, 0.0);
-	m_constant = 1.0f;
-	m_linear = 0.09f;
-	m_quadratic = 0.032f;
+	m_pos = vec3(0.0, 0.0, 0.0);
+	m_att = vec3(0.0, 0.0, 0.0);
 }
 
 PointLight::~PointLight()
@@ -21,33 +18,28 @@ PointLight::~PointLight()
 void PointLight::Load(ifstream& _file)
 {
 	Light::Load(_file);
-	StringHelp::Float3(_file, "DIR", m_direction.x, m_direction.y, m_direction.z);
-	StringHelp::Float(_file, "CONS", m_constant);
-	StringHelp::Float(_file, "LIN", m_linear);
-	StringHelp::Float(_file, "QUAD", m_quadratic);
+	StringHelp::Float3(_file, "ATT", m_att.x, m_att.y, m_att.z);
+
 }
 
 void PointLight::SetRenderValues(unsigned int _prog)
 {
-	Light::SetRenderValues(_prog);
+    Light::SetRenderValues(_prog);
 
-	GLint loc;
-	string pntString = m_name + "Pnt";//only thing I add is a direction
+    GLint loc;
 
- 	if (Helper::SetUniformLocation(_prog, pntString.c_str(), &loc))
-		glUniform3fv(loc, 1, glm::value_ptr(m_direction));
+    // Set position
+    string posString = m_name + "Pos";
+    if (Helper::SetUniformLocation(_prog, posString.c_str(), &loc))
+        glUniform3fv(loc, 1, glm::value_ptr(m_pos));
 
-	string constStr = m_name + "AttenuationConstant";
-	string linearStr = m_name + "AttenuationLinear";
-	string quadStr = m_name + "AttenuationQuadratic";
+    // Set color
+    string colString = m_name + "Col";
+    if (Helper::SetUniformLocation(_prog, colString.c_str(), &loc))
+        glUniform3fv(loc, 1, glm::value_ptr(m_col));
 
-	if (Helper::SetUniformLocation(_prog, constStr.c_str(), &loc))
-		glUniform1f(loc, m_constant);
-
-	if (Helper::SetUniformLocation(_prog, linearStr.c_str(), &loc))
-		glUniform1f(loc, m_linear);
-
-	if (Helper::SetUniformLocation(_prog, quadStr.c_str(), &loc))
-		glUniform1f(loc, m_quadratic);
-
+    // Set attenuation
+    string attString = m_name + "Att";
+    if (Helper::SetUniformLocation(_prog, attString.c_str(), &loc))
+        glUniform3fv(loc, 1, glm::value_ptr(m_att));
 }

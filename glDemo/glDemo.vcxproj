@@ -151,6 +151,7 @@
     <ClInclude Include="ExampleGO.h" />
     <ClInclude Include="FreeImage\FreeImage.h" />
     <ClInclude Include="OrthoCamera.h" />
+    <ClInclude Include="PlaceLights.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="RenderPass.h" />
     <ClInclude Include="Scene.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="DirectionLight.cpp" />
     <ClCompile Include="ExampleGO.cpp" />
     <ClCompile Include="OrthoCamera.cpp" />
+    <ClCompile Include="PlaceLights.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="GameObject.cpp" />

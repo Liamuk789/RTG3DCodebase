@@ -11,7 +11,7 @@ Light* LightFactory::makeNewLight(std::string _type)
 	{
 		return new Light();
 	}
-	else if (_type == "DIRECTION")
+	if (_type == "DIRECTION")
 	{
 		return new DirectionLight();
 	}

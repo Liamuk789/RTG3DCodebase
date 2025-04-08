@@ -15,12 +15,13 @@ public:
 	//set render values
 	virtual void SetRenderValues(unsigned int _prog);
 
+	vec3 GetAtt() { return m_pos; }
+
+	vec3 SetAtt(vec3 _att) { return m_att = _att; }
 	
 
 protected:
 	
-	vec3 m_direction;
-	float m_constant;
-	float m_linear;
-	float m_quadratic;
+	vec3 m_att;
+
 };
