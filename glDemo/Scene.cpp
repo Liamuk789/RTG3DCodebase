@@ -218,7 +218,20 @@ void Scene::SetShaderUniforms(GLuint _shaderprog)
 	//everything needs to know about all the lights
 	for (list<Light*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
 	{
-		(*it)->SetRenderValues(_shaderprog);
+		if ((*it)->GetType() == "POINT")
+		{
+			(*it)->SetRenderValues(_shaderprog);
+		}
+		else if ((*it)->GetType() == "DIRECTIONAL")
+		{
+			(*it)->SetRenderValues(_shaderprog);
+		}
+		else if ((*it)->GetType() == "SPOT")
+		{
+			(*it)->SetRenderValues(_shaderprog);
+		}
+		else
+			(*it)->SetRenderValues(_shaderprog);
 	}
 
 }
