@@ -13,7 +13,7 @@ PlaceLights::PlaceLights(vec3 _loc, string _name)
 
 		//Light* newLight = LightFactory::makeNewLight(type);
 
-		Light* newLight = LightFactory::makeNewLight("POINT");
+		/*Light* newLight = LightFactory::makeNewLight("POINT");
 		PointLight* pointLight = dynamic_cast<PointLight*>(newLight);
 		if (pointLight)
 		{
@@ -21,11 +21,11 @@ PlaceLights::PlaceLights(vec3 _loc, string _name)
 			newLight->SetAmb(glm::vec3(0.1, 0.1, 0.1));
 			newLight->SetPos(_loc);
 			pointLight->SetAtt(glm::vec3(1.0, 0.1, 0.01));
-		}
-		else
+		}*/
+		/*else
 		{
 			std::cerr << "Error: newLight is not a PointLight!" << std::endl;
-		}
+		}*/
 		std::cout << "Light created at position: " << _loc.x << ", " << _loc.y << ", " << _loc.z << std::endl;
 	}
 }
