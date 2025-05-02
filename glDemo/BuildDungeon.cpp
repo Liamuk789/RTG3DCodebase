@@ -80,7 +80,7 @@ void BuildDungeon::Load(ifstream& _file)
         StringHelp::Float3(_file, "OBJLOC", objLocs.x, objLocs.y, objLocs.z);
         ObjLocation.push_back(objLocs);
     }
-    
+	
 
 
     if (m_name == "DUNGEONMAIN")

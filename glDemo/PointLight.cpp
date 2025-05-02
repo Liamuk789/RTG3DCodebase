@@ -53,27 +53,33 @@ void PointLight::Load(ifstream& _file)
 
 void PointLight::Tick(float _dt)
 {
-    static std::vector<int> directions(lights.size(), 1); // 1 for forward, -1 for backward
-
+    static std::vector<int> directions(lights.size(), 1);
+	
     for (size_t i = 0; i < lights.size(); ++i)
     {
-        //// Update position based on direction
-        lights[i].m_pos.z += directions[i] * 0.3f;
-
-        // Reverse direction if boundaries are reached
-        if (lights[i].m_pos.z >= 50.0f)
+        bool movelights = false; // Set to true to move lights
+        //movelights code
+        if (movelights == true)
         {
-            directions[i] = -1; // Move backward
-        }
-        else if (lights[i].m_pos.z <= -50.0f)
-        {
-            directions[i] = 1; // Move forward
-        }
+            //// Update position based on direction
+            lights[i].m_pos.z += directions[i] * 0.3f;
 
-        // Gradually increase attenuation over time
-        //lights[i].m_att.x += _dt * 0.02f; // Adjust growth rate as needed
-        //lights[i].m_att.y += _dt * 0.02f;
-        //lights[i].m_att.z += _dt * 0.02f;
+            // Reverse direction if boundaries are reached
+            if (lights[i].m_pos.z >= 50.0f)
+            {
+                directions[i] = -1; // Move backward
+            }
+            else if (lights[i].m_pos.z <= -50.0f)
+            {
+                directions[i] = 1; // Move forward
+            }
+
+            // Gradually increase attenuation over time
+            //lights[i].m_att.x += _dt * 0.02f; // Adjust growth rate as needed
+            //lights[i].m_att.y += _dt * 0.02f;
+            //lights[i].m_att.z += _dt * 0.02f;
+        }
+        
     }
 }
 

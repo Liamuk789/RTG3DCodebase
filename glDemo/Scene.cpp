@@ -207,6 +207,15 @@ void Scene::Render() {
             
 			
         }
+		if ((*it)->GetRP() & RP_TRANSPARENT) {
+			GLuint SP = (*it)->GetShaderProg();
+			glUseProgram(SP);
+			m_useCamera->SetRenderValues(SP);
+			SetShaderUniforms(SP);
+			(*it)->PreRender();
+			(*it)->Render();
+			
+		}
     }
 }
 
