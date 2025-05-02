@@ -40,7 +40,7 @@ public:
 	//void SetRenderValues(unsigned int _prog) override;
 
 	void rotateCamera(float _dTheta, float _dPhi);
-	void Move(glm::vec3 _d);
+	void Move(glm::vec3 _d, float _dt);
 
 	void setAspect(float _aspect);
 

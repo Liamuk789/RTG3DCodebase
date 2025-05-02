@@ -71,7 +71,7 @@ public:
 
 	void scrollZoom(float _s);
 
-	void moveCamera(glm::vec3 direction);
+	void moveCamera(glm::vec3 direction, float _dt);
 
 protected:
 

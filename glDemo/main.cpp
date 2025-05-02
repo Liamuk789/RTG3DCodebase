@@ -38,6 +38,8 @@ bool aDown = false;
 bool sDown = false;
 bool dDown = false;
 
+float tDelta = 0.0f;
+
 
 struct KeyState
 {
@@ -193,7 +195,7 @@ void renderScene()
 // Function called to animate elements in the scene
 void updateScene() 
 {
-	float tDelta = 0.0f;
+	
 
 	if (g_gameClock) {
 
@@ -318,22 +320,22 @@ void getMovement(KeyState key)
 	if (key.forward)
 	{
 		glm::vec3 movement(0.0f, 0.0f, 1.0f);
-		g_Scene->moveCamera(movement * 0.003f);
+		g_Scene->moveCamera(movement, tDelta);
 	}
 	if (key.left)
 	{
 		glm::vec3 movement(-1.0f, 0.0f, 0.0f);
-		g_Scene->moveCamera(movement * 0.003f);
+		g_Scene->moveCamera(movement, tDelta);
 	}
 	if (key.backward)
 	{
 		glm::vec3 movement(0.0f, 0.0f, -1.0f);
-		g_Scene->moveCamera(movement * 0.003f);
+		g_Scene->moveCamera(movement, tDelta);
 	}
 	if (key.right)
 	{
 		glm::vec3 movement(1.0f, 0.0f, 0.0f);
-		g_Scene->moveCamera(movement * 0.003f);
+		g_Scene->moveCamera(movement, tDelta);
 	}
 	
 }

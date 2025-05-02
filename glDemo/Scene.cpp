@@ -466,7 +466,7 @@ void Scene::scrollZoom(float _s)
 	}
 }
 
-void Scene::moveCamera(glm::vec3 direction)
+void Scene::moveCamera(glm::vec3 direction, float _dt)
 {
 
 	
@@ -476,11 +476,11 @@ void Scene::moveCamera(glm::vec3 direction)
 		OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
 		if (fpCam)
 		{
-			fpCam->Move(direction);
+			fpCam->Move(direction, _dt);
 		}
 		if (orthoCam)
 		{
-			orthoCam->Move(direction);
+			orthoCam->Move(direction, _dt);
 		}
 	}
 
