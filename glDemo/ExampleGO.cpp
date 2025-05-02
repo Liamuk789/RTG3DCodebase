@@ -7,7 +7,7 @@
 
 ExampleGO::ExampleGO()
 {
-
+	normalNeeded = false;
 }
 
 ExampleGO::~ExampleGO()
@@ -20,14 +20,14 @@ void ExampleGO::Load(ifstream& _file)
 	StringHelp::String(_file, "MODEL", m_ModelName);
 	StringHelp::String(_file, "TEXTURE", m_TexName);
 	StringHelp::String(_file, "SHADER", m_ShaderName);
-	//StringHelp::String(_file, "NORMAL", m_NormalName);
 	
-	/*if (m_NormalName == "NULL")
+	if (m_ShaderName == "NORM")
 	{
-		normalNeeded = false;
+		StringHelp::String(_file, "NORMAL", m_NormalName);
+		normalNeeded = true;
 	}
 	else
-		normalNeeded = true;*/
+		normalNeeded = false;
 
 
 }
@@ -52,7 +52,11 @@ void ExampleGO::PreRender()
 	
 	//DO NORMAL MAPS
 	
-	
+	if (normalNeeded)
+	{
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, m_normal);
+	}
 
 }
 
@@ -75,10 +79,10 @@ void ExampleGO::Init(Scene* _scene)
 	m_texture = _scene->GetTexture(m_TexName)->GetTexID();
 	m_model = _scene->GetModel(m_ModelName);
 
-	/*if (normalNeeded)
+	if (normalNeeded)
 	{
 		m_normal = _scene->GetTexture(m_NormalName)->GetTexID();
-	}*/
+	}
 	
 	
 }

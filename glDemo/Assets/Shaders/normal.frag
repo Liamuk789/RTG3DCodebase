@@ -1,0 +1,69 @@
+#version 450 core
+
+layout(binding = 0) uniform sampler2D basetexture;
+layout(binding = 1) uniform sampler2D normalMap;
+
+struct PointLight {
+    vec3 pntPos;
+    vec3 pntCol;
+    vec3 pntAtt;
+};
+
+uniform int numPointLights;
+uniform PointLight pointLights[10];
+
+uniform vec3 DIRDir;
+uniform vec3 DIRCol;
+uniform vec3 DIRAmb;
+
+in vec3 surfaceWorldPos;
+in vec3 surfaceNormal;
+in vec2 texCoord;
+in mat3 TBN;
+
+out vec4 FragColour;
+
+void main() 
+{
+    // Sample and transform the normal map
+    vec3 normal = texture(normalMap, texCoord.xy).rgb;
+    normal = normal * 2.0 - 1.0; // Convert from [0,1] to [-1,1]
+    normal = normalize(TBN * normal); // Transform to world space
+
+    // Sample the base texture
+    vec3 baseColour = texture(basetexture, texCoord.xy).rgb;
+
+    // Directional light calculations
+    vec3 normalizedDIRDir = normalize(DIRDir);
+    float dirL = max(dot(normal, normalizedDIRDir), 0.0);
+    vec3 directionalDiffuse = baseColour * DIRCol * dirL;
+    vec3 directionalAmbient = DIRAmb;
+
+    vec3 totalPointDiffuse = vec3(0.0);
+
+    // Point light calculations
+    for (int i = 0; i < numPointLights; i++) {
+        vec3 surfaceToLightVec = pointLights[i].pntPos - surfaceWorldPos;
+        vec3 surfaceToLightNormalised = normalize(surfaceToLightVec);
+
+        float pntL = max(dot(normal, surfaceToLightNormalised), 0.0);
+        float pntD = length(surfaceToLightVec);
+
+        float maxCalcDistance = 12.0f;
+
+        if (pntD < maxCalcDistance) {
+            float kc = pointLights[i].pntAtt.x;
+            float kl = pointLights[i].pntAtt.y;
+            float kq = pointLights[i].pntAtt.z;
+
+            float atten = 1.0 / (kc + (kl * pntD) + (kq * (pntD * pntD)));
+            float edgeSoftness = smoothstep(maxCalcDistance * 0.9, maxCalcDistance, pntD);
+            atten *= 1.0 - edgeSoftness;
+            totalPointDiffuse += baseColour * pointLights[i].pntCol * pntL * atten;
+        }
+    }
+
+    // Combine light contributions
+    vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse;
+    FragColour = vec4(finalColour, 1.0);
+}

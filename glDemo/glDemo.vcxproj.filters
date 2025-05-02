@@ -237,5 +237,11 @@
     <None Include="Assets\Shaders\flatColour.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Assets\Shaders\normal.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\normal.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

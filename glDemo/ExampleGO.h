@@ -29,12 +29,12 @@ public:
 
 protected:
 
-	string m_ShaderName, m_TexName, m_ModelName;// , m_NormalName;
+	string m_ShaderName, m_TexName, m_ModelName, m_NormalName;
 
 	GLuint m_texture;
-	//GLuint m_normal;
+	GLuint m_normal;
 	AIModel* m_model;
 
-	//bool normalNeeded;
+	bool normalNeeded;
 };
 
