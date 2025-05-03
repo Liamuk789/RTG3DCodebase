@@ -317,27 +317,32 @@ KeyState updateInput(KeyState& keyState)
 
 void getMovement(KeyState key)
 {
+	glm::vec3 movement(0.0f, 0.0f, 0.0f);
+
 	if (key.forward)
 	{
-		glm::vec3 movement(0.0f, 0.0f, 1.0f);
-		g_Scene->moveCamera(movement, tDelta);
+		movement += glm::vec3(0.0f, 0.0f, 1.0f);
 	}
 	if (key.left)
 	{
-		glm::vec3 movement(-1.0f, 0.0f, 0.0f);
-		g_Scene->moveCamera(movement, tDelta);
+		movement += glm::vec3(-1.0f, 0.0f, 0.0f);
 	}
 	if (key.backward)
 	{
-		glm::vec3 movement(0.0f, 0.0f, -1.0f);
-		g_Scene->moveCamera(movement, tDelta);
+		movement += glm::vec3(0.0f, 0.0f, -1.0f);
 	}
 	if (key.right)
 	{
-		glm::vec3 movement(1.0f, 0.0f, 0.0f);
-		g_Scene->moveCamera(movement, tDelta);
+		movement += glm::vec3(1.0f, 0.0f, 0.0f);
 	}
-	
+	//normalising here as movement was not moving correctly
+
+	if (glm::length(movement) > 0.0f)
+	{
+		movement = glm::normalize(movement);
+	}
+
+	g_Scene->moveCamera(movement, tDelta);
 }
 
 
