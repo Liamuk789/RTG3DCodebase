@@ -1,7 +1,5 @@
 #include "TorchLight.h"
 
-
-
 TorchLight::TorchLight()
 {
 
@@ -18,6 +16,11 @@ void TorchLight::Load(ifstream& _file)
 }
 
 void TorchLight::Tick(float _dt)
+{
+
+}
+
+void TorchLight::SetRenderValues(unsigned int _prog)
 {
 
 }

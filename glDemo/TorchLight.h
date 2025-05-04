@@ -6,13 +6,17 @@ class TorchLight :
 	public PointLight
 {
 public:
+
 	TorchLight();
 	~TorchLight();
 
-	//load from manifest
-	virtual void Load(ifstream& _file);
+	void Load(ifstream& _file);
+
 	void Tick(float _dt);
-	
+
+
+	void SetRenderValues(unsigned int _prog);
+
 
 protected:
 

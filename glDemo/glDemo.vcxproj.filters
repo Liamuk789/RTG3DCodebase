@@ -133,7 +133,7 @@
       <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TorchLight.h">
-      <Filter>Scene Source Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -222,7 +222,7 @@
       <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TorchLight.cpp">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
