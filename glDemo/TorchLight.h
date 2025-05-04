@@ -20,5 +20,5 @@ public:
 
 protected:
 
-
+	float m_noTorch;
 };
