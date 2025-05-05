@@ -64,6 +64,11 @@ std::vector<glm::vec3> ObjLocation =
 
 };
 
+std::vector<glm::vec3> TorchLocation =
+{
+
+};
+
 void BuildDungeon::Load(ifstream& _file)
 {
     ExampleGO::Load(_file);
@@ -186,7 +191,7 @@ void BuildDungeon::Load(ifstream& _file)
                 PlaceLights* light = new PlaceLights(lightOffset, m_name);
 
                 
-                std::cout << glm::to_string(lightOffset) << std::endl;
+                //std::cout << glm::to_string(lightOffset) << std::endl;
             }
         }
         Origins.clear();

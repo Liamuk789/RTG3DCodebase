@@ -23,8 +23,6 @@ public:
 
 	void SetPointLights(unsigned int _prog, const std::vector<pointLight> _lights);
 
-
-
 	//set render values
 	virtual void SetRenderValues(unsigned int _prog);
 

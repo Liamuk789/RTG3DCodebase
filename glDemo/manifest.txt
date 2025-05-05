@@ -92,7 +92,7 @@ ATT: 0.1 0.1 0.01
 }
 
 
-MODELS 10
+MODELS 8
 {
 TYPE: AI
 NAME: BEAST
@@ -117,16 +117,6 @@ FILE: Assets\\gsphere.obj
 TYPE: AI
 NAME: DUCK
 FILE: Assets\\duck\\rubber_duck_toy_4k.obj
-}
-{
-TYPE: AI
-NAME: SPHERE
-FILE: Assets\\gsphere.obj
-}
-{
-TYPE: AI
-NAME: CUBEHIGH
-FILE: Assets\\cube_highpoly.obj
 }
 {
 TYPE: AI

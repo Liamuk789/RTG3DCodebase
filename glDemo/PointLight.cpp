@@ -44,10 +44,6 @@ void PointLight::Load(ifstream& _file)
         lights.push_back(light);
     }
 
-    
-   
-    
-
 }
 
 
@@ -62,7 +58,7 @@ void PointLight::Tick(float _dt)
         if (movelights == true)
         {
             //// Update position based on direction
-            lights[i].m_pos.z += directions[i] * 0.3f;
+            lights[i].m_pos.z += directions[i] * 0.1f;
 
             // Reverse direction if boundaries are reached
             if (lights[i].m_pos.z >= 50.0f)

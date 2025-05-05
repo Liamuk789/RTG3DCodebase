@@ -37,7 +37,6 @@ protected:
 	
 	vec3		origin;
 	vec3		objLocs;
-
-	
+	vec3		torch;
 
 };
