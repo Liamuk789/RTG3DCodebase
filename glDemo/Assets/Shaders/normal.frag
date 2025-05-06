@@ -16,7 +16,7 @@ struct TorchLight {
 };
 
 uniform int numPointLights;
-uniform PointLight pointLights[1];
+uniform PointLight pointLights[10];
 
 uniform int numTorchLights;
 uniform TorchLight torchLights[36];
@@ -39,8 +39,10 @@ void main()
     normal = normal * 2.0 - 1.0; // Convert from [0,1] to [-1,1]
     normal = normalize(TBN * normal); // Transform to world space
 
-    // Sample the base texture
-    vec3 baseColour = texture(basetexture, texCoord.xy).rgb;
+     // Sample the base texture (including alpha)
+    vec4 baseTexture = texture(basetexture, texCoord.xy);
+    vec3 baseColour = baseTexture.rgb;
+    float alpha = baseTexture.a; // Sample alpha channel
 
     // Directional light calculations
     vec3 normalizedDIRDir = normalize(DIRDir);
@@ -97,5 +99,7 @@ void main()
 
     // Combine light contributions
     vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse + totalTorchDiffuse;
-    FragColour = vec4(finalColour, 1.0);
+
+    // Output final color with alpha
+    FragColour = vec4(finalColour.rgb, alpha);
 }

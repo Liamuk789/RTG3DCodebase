@@ -87,7 +87,6 @@ void TorchLight::SetRenderValues(unsigned int _prog)
    // Use the globalTorchLights shared pointer instead of undefined torchLights  
    SetPointLights(_prog, *globalTorchLights);  
 
-   m_prog = _prog;  
 }
 
 void TorchLight::getTorchObjLoc(vec3 torchPos)

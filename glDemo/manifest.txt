@@ -123,7 +123,7 @@ NAME: AXES
 }
 
 
-TEXTURES 15
+TEXTURES 13
 {
 TYPE: FIF_BMP
 NAME: BEAST
@@ -137,47 +137,27 @@ FILE: Assets\\beast\\beast_texture_norm.jpg
 {
 TYPE: FIF_JPEG
 NAME: ALIEN
-FILE: Assets\\alien\\Alien-Animal-Base-Color.jpg
+FILE: Assets\\alien\\Alien-Animal-Base-Color-low.jpg
 }
 {
 TYPE: FIF_JPEG
 NAME: ALIENNORM
-FILE: Assets\\alien\\New_Normal-Map_8K.jpg
+FILE: Assets\\alien\\Alien-Animal-Base-Color-Low-Norm.jpg
 }
 {
 TYPE: FIF_PNG
 NAME: OGRE
-FILE: Assets\\ogre\\Texture\\SkinColorMostro_COLOR.png
+FILE: Assets\\ogre\\Texture\\SkinColorMostro_COLOR-Low.png
 }
 {
 TYPE: FIF_PNG
 NAME: OGRENORM
-FILE: Assets\\ogre\\Texture\\SkinColorMostro_NRM.png
+FILE: Assets\\ogre\\Texture\\SkinColorMostro_COLOR-Low-Norm.png
 }
 {
 TYPE: FIF_JPEG
 NAME: ROCK
 FILE: Assets\\Textures\\Hodges_G_MountainRock1.jpg
-}
-{
-TYPE: FIF_PNG
-NAME: SHIP
-FILE: Assets\\Textures\\player1_ship.png
-}
-{
-TYPE: FIF_JPEG
-NAME: STARS
-FILE: Assets\\Textures\\stars.jpg
-}
-{
-TYPE: FIF_JPEG
-NAME: STARS2
-FILE: Assets\\Textures\\stars2.jpg
-}
-{
-TYPE: FIF_JPEG
-NAME: DUCK
-FILE: Assets\\duck\\rubber_duck_toy_diff_4k.jpg
 }
 {
 TYPE: FIF_JPEG
@@ -188,6 +168,16 @@ FILE: Assets\\Textures\\dungeon_wall.jpg
 TYPE: FIF_JPEG
 NAME: WALLNORM
 FILE: Assets\\Textures\\dungeon_wall_normal.jpg
+}
+{
+TYPE: FIF_PNG
+NAME: GLASS
+FILE: Assets\\Glass\\Glass.png
+}
+{
+TYPE: FIF_PNG
+NAME: GLASSNORM
+FILE: Assets\\Glass\\Glass-Norm.png
 }
 {
 TYPE: FIF_JPEG
@@ -409,9 +399,9 @@ SCALE: 1.0 1.5 0.2
 ROTINC: 0.0 0.0 0.0
 RENDERPASS: RP_TRANSPARENT
 MODEL: CUBELOW
-TEXTURE: WALL
+TEXTURE: GLASS
 SHADER: NORM
-NORMAL: WALLNORM
+NORMAL: GLASSNORM
 NOORIGINS: 6
 ORIGINS: -36.0 0.0 44.0
 ORIGINS: 0.0 0.0 44.0
@@ -431,9 +421,9 @@ SCALE: 0.2 1.5 1.0
 ROTINC: 0.0 0.0 0.0
 RENDERPASS: RP_TRANSPARENT
 MODEL: CUBELOW
-TEXTURE: WALL
+TEXTURE: GLASS
 SHADER: NORM
-NORMAL: WALLNORM
+NORMAL: GLASSNORM
 NOORIGINS: 6
 ORIGINS: -44.0 0.0 36.0
 ORIGINS: -44.0 0.0 0.0
