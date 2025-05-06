@@ -8,8 +8,17 @@ struct PointLight {
     vec3 pntAtt;
 };
 
+struct TorchLight {
+    vec3 torPos;
+    vec3 torCol;
+    vec3 torAtt;
+};
+
 uniform int numPointLights;
 uniform PointLight pointLights[10];
+
+uniform int numTorchLights;
+uniform TorchLight torchLights[36];
 
 uniform vec3 DIRDir;
 uniform vec3 DIRCol;
@@ -55,6 +64,27 @@ void main(void) {
             float edgeSoftness = smoothstep(maxCalcDistance * 0.9, maxCalcDistance, pntD);
             atten *= 1.0 - edgeSoftness;
             totalPointDiffuse += surfaceColour.rgb * pointLights[i].pntCol * pntL * atten;
+        }
+    }
+    // Torch light calculations
+    for (int i = 0; i < numTorchLights; i++) {
+        vec3 surfaceToLightVec = torchLights[i].torPos - inputFragment.surfaceWorldPos;
+        vec3 surfaceToLightNormalised = normalize(surfaceToLightVec);
+
+        float torL = max(dot(N, surfaceToLightNormalised), 0.0);
+        float torD = length(surfaceToLightVec);
+
+        float maxCalcDistance = 12.0f;
+
+        if (torD < maxCalcDistance) {
+            float kc = torchLights[i].torAtt.x;
+            float kl = torchLights[i].torAtt.y;
+            float kq = torchLights[i].torAtt.z;
+
+            float atten = 1.0 / (kc + (kl * torD) + (kq * (torD * torD)));
+            float edgeSoftness = smoothstep(maxCalcDistance * 0.9, maxCalcDistance, torD);
+            atten *= 1.0 - edgeSoftness;
+            totalPointDiffuse += surfaceColour.rgb * torchLights[i].torCol * torL * atten;
         }
     }
 

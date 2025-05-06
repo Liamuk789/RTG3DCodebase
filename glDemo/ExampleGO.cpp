@@ -62,15 +62,9 @@ void ExampleGO::PreRender()
 
 void ExampleGO::Render()
 {
-	if (m_model)
-	{
-		m_model->Render();
-	}
-	else
-	{
-		// Handle the error, log it, or provide a fallback
-		std::cerr << "Error: m_model is nullptr" << std::endl;
-	}
+	
+	m_model->Render();
+	
 }
 
 void ExampleGO::Init(Scene* _scene)

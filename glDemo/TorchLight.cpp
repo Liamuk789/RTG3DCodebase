@@ -2,19 +2,23 @@
 #include "TorchLight.h"
 #include "helper.h"
 #include "stringHelp.h"
+#include <iostream>
+#include <algorithm>
 
-std::vector<torchLight> torchLights =
-{
+unsigned int m_prog = 0;
 
-};
-
+//shared ptr to hold information of torchlightobj postions
+//so it can be used to place torch lights at those postions
+std::shared_ptr<std::vector<torchLight>> TorchLight::globalTorchLights = std::make_shared<std::vector<torchLight>>();
 
 TorchLight::TorchLight()
 {
+	
 	m_type = "TORCH";
+	//m_name = "TOR";
 	m_pos = vec3(0.0, 0.0, 0.0);
-	m_col = vec3(0.0, 0.0, 1.0);
-	m_att = vec3(0.0, 0.0, 0.0);
+	m_col = vec3(1.0, 0.6, 0.0);
+	m_att = vec3(0.1, 0.1, 0.01);
 }
 
 TorchLight::~TorchLight()
@@ -24,25 +28,38 @@ TorchLight::~TorchLight()
 
 void TorchLight::Load(ifstream& _file)
 {
-	StringHelp::String(_file, "NAME", m_name);
-	StringHelp::Float(_file, "NOLIGHTS", m_noLights);
+  
+   StringHelp::String(_file, "NAME", m_name);
+   StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
+   StringHelp::Float3(_file, "COL", m_col.x, m_col.y, m_col.z);
+   StringHelp::Float3(_file, "ATT", m_att.x, m_att.y, m_att.z);
 
-	torchLight light;
-
-	for (int i = 0; i < m_noLights; ++i)
-	{
-
-		StringHelp::Float3(_file, "POS", light.m_pos.x, light.m_pos.y, light.m_pos.z);
-		StringHelp::Float3(_file, "COL", light.m_col.x, light.m_col.y, light.m_col.z);
-		StringHelp::Float3(_file, "ATT", light.m_att.x, light.m_att.y, light.m_att.z);
-
-		torchLights.push_back(light);
-	}
+  
 }
 
-void TorchLight::Tick(float _dt)
-{
+void TorchLight::Tick(float _dt)  
+{  
+   static std::vector<float> timeAccumulators(globalTorchLights->size(), 0.0f);
 
+   for (size_t i = 0; i < globalTorchLights->size(); ++i)
+   {
+	   // Update the time accumulator for the current torch
+	   timeAccumulators[i] += _dt;
+
+	   // Smooth sine wave oscillation for a natural flicker
+	   float sineWave = sin(timeAccumulators[i] * 2.0f) * 0.1f; // Frequency and amplitude
+
+	   // Random noise for abrupt flicker
+	   float randomFlicker = (static_cast<float>(rand()) / RAND_MAX) * 0.2f - 0.1f;
+
+	   // Combine sine wave and random flicker
+	   float flickerEffect = sineWave + randomFlicker;
+
+	   // Apply the flicker effect to the torchlight's color
+	   (*globalTorchLights)[i].m_col.x = clamp((*globalTorchLights)[i].m_col.x + flickerEffect, 0.8f, 1.0f); // Red channel
+	   (*globalTorchLights)[i].m_col.y = clamp((*globalTorchLights)[i].m_col.y + flickerEffect, 0.4f, 0.6f); // Green channel
+	   (*globalTorchLights)[i].m_col.z = 0.0f; // Blue channel remains 0 for a fiery look
+   }  
 }
 
 void TorchLight::SetPointLights(unsigned int _prog, const std::vector<torchLight> torchLights)
@@ -55,9 +72,9 @@ void TorchLight::SetPointLights(unsigned int _prog, const std::vector<torchLight
 	for (size_t i = 0; i < torchLights.size(); ++i)
 	{
 		std::string basename = "torchLights[" + std::to_string(i) + "].";
-		GLint posLoc = glGetUniformLocation(_prog, (basename + "pntPos").c_str());
-		GLint colLoc = glGetUniformLocation(_prog, (basename + "pntCol").c_str());
-		GLint attLoc = glGetUniformLocation(_prog, (basename + "pntAtt").c_str());
+		GLint posLoc = glGetUniformLocation(_prog, (basename + "torPos").c_str());
+		GLint colLoc = glGetUniformLocation(_prog, (basename + "torCol").c_str());
+		GLint attLoc = glGetUniformLocation(_prog, (basename + "torAtt").c_str());
 		glUniform3fv(posLoc, 1, &torchLights[i].m_pos[0]);
 		glUniform3fv(colLoc, 1, &torchLights[i].m_col[0]);
 		glUniform3fv(attLoc, 1, &torchLights[i].m_att[0]);
@@ -65,7 +82,23 @@ void TorchLight::SetPointLights(unsigned int _prog, const std::vector<torchLight
 
 }
 
-void TorchLight::SetRenderValues(unsigned int _prog)
+void TorchLight::SetRenderValues(unsigned int _prog)  
+{  
+   // Use the globalTorchLights shared pointer instead of undefined torchLights  
+   SetPointLights(_prog, *globalTorchLights);  
+
+   m_prog = _prog;  
+}
+
+void TorchLight::getTorchObjLoc(vec3 torchPos)
 {
-	SetPointLights(_prog, torchLights);
+	torchLight light;
+	vec3 liftLight = torchPos + vec3(-1.0, 2.0, 0.0);
+
+	light.m_pos = torchPos;
+	light.m_col = m_col;
+	light.m_att = m_att;
+
+	globalTorchLights->emplace_back(light);
+
 }

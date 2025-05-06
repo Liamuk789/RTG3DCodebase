@@ -2,6 +2,7 @@
 #include "ExampleGO.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "TorchLight.h"
 
 
 class BuildDungeon : public ExampleGO
@@ -21,7 +22,9 @@ public:
 
     void Render();
 
+
 	std::vector<vec3>finalTorchLocations;
+
 
 
 protected:
@@ -34,9 +37,12 @@ protected:
 	float		m_noOrigin;
 
 	std::vector<vec3>finalObjLocations;
+	std::vector<vec3>finalGlassLocations;
 	
 	vec3		origin;
 	vec3		objLocs;
 	vec3		torch;
+
+	TorchLight* torchLight = new TorchLight();
 
 };

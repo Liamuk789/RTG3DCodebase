@@ -227,7 +227,12 @@ void Scene::SetShaderUniforms(GLuint _shaderprog)
 	//everything needs to know about all the lights
 	for (list<Light*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
 	{
+
 		if ((*it)->GetType() == "POINT")
+		{
+			(*it)->SetRenderValues(_shaderprog);
+		}
+		else if ((*it)->GetType() == "TORCH")
 		{
 			(*it)->SetRenderValues(_shaderprog);
 		}

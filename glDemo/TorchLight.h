@@ -12,6 +12,9 @@ struct torchLight
 class TorchLight :
 	public PointLight
 {
+
+	static std::shared_ptr<std::vector<torchLight>> globalTorchLights;
+
 public:
 
 	TorchLight();
@@ -25,8 +28,10 @@ public:
 
 	void SetRenderValues(unsigned int _prog);
 
+	void getTorchObjLoc(vec3 torchPos);
+
 
 protected:
 
-	std::vector<torchLight> torchLights;
+	
 };

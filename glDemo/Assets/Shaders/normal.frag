@@ -9,8 +9,17 @@ struct PointLight {
     vec3 pntAtt;
 };
 
+struct TorchLight {
+    vec3 torPos;
+    vec3 torCol;
+    vec3 torAtt;
+};
+
 uniform int numPointLights;
-uniform PointLight pointLights[10];
+uniform PointLight pointLights[1];
+
+uniform int numTorchLights;
+uniform TorchLight torchLights[36];
 
 uniform vec3 DIRDir;
 uniform vec3 DIRCol;
@@ -40,6 +49,7 @@ void main()
     vec3 directionalAmbient = DIRAmb;
 
     vec3 totalPointDiffuse = vec3(0.0);
+    vec3 totalTorchDiffuse = vec3(0.0);
 
     // Point light calculations
     for (int i = 0; i < numPointLights; i++) {
@@ -63,7 +73,29 @@ void main()
         }
     }
 
+    // Torch light calculations
+    for (int i = 0; i < numTorchLights; i++) {
+        vec3 surfaceToLightVec = torchLights[i].torPos - surfaceWorldPos;
+        vec3 surfaceToLightNormalised = normalize(surfaceToLightVec);
+
+        float torL = max(dot(normal, surfaceToLightNormalised), 0.0);
+        float torD = length(surfaceToLightVec);
+
+        float maxCalcDistance = 10.0f;
+
+        if (torD < maxCalcDistance) {
+            float kc = torchLights[i].torAtt.x;
+            float kl = torchLights[i].torAtt.y;
+            float kq = torchLights[i].torAtt.z;
+
+            float atten = 1.0 / (kc + (kl * torD) + (kq * (torD * torD)));
+            float edgeSoftness = smoothstep(maxCalcDistance * 0.9, maxCalcDistance, torD);
+            atten *= 1.0 - edgeSoftness;
+            totalTorchDiffuse += baseColour * torchLights[i].torCol * torL * atten;
+        }
+    }
+
     // Combine light contributions
-    vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse;
+    vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse + totalTorchDiffuse;
     FragColour = vec4(finalColour, 1.0);
 }

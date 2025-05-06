@@ -1,5 +1,5 @@
 #include "BuildDungeon.h"
-#include "PlaceLights.h"
+
 
 #include <glm/gtx/string_cast.hpp>
 
@@ -41,9 +41,12 @@
 //
 //};
 
+
+class TorchLight;
+
 BuildDungeon::BuildDungeon()
 {
-   
+    
     m_noWalls = 0.0f;
     m_noOrigin = 0.0f;
     
@@ -53,17 +56,24 @@ BuildDungeon::~BuildDungeon()
 {
    
 }
-
+//origin to build from list
 std::vector<glm::vec3> Origins =
 {
 
 };
-
+//wall list
 std::vector<glm::vec3> ObjLocation =
 {
 
 };
 
+//glass list
+std::vector<glm::vec3> GlassLocation =
+{
+
+};
+
+//torch object list
 std::vector<glm::vec3> TorchLocation =
 {
 
@@ -71,6 +81,7 @@ std::vector<glm::vec3> TorchLocation =
 
 void BuildDungeon::Load(ifstream& _file)
 {
+
     ExampleGO::Load(_file);
     StringHelp::Float(_file, "NOORIGINS", m_noOrigin);
     for (int i = 0; i < m_noOrigin; ++i)
@@ -92,13 +103,13 @@ void BuildDungeon::Load(ifstream& _file)
     {
         for (vec3 origin : Origins)
         {
-            // Read all wall locations
+            //read wall lsit
             for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
 
-                // Add the wall location to the vector
+                //add walls to locations
                 finalObjLocations.push_back(newOrigin);
             }
         }
@@ -110,13 +121,13 @@ void BuildDungeon::Load(ifstream& _file)
     {
         for (vec3 origin : Origins)
         {
-            // Read all wall locations
+            
             for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
 
-                // Add the wall location to the vector
+                
                 finalObjLocations.push_back(newOrigin);
             }
         }
@@ -129,12 +140,12 @@ void BuildDungeon::Load(ifstream& _file)
     {
         for (vec3 origin : Origins)
         {
-            // Read all wall locations
+            
             for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
-                // Add the wall location to the vector
+                
                 finalObjLocations.push_back(newOrigin);
             }
         }
@@ -146,12 +157,12 @@ void BuildDungeon::Load(ifstream& _file)
     {
         for (vec3 origin : Origins)
         {
-            // Read all wall locations
+            
             for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
-                // Add the wall location to the vector
+                
                 finalObjLocations.push_back(newOrigin);
             }
         }
@@ -162,12 +173,12 @@ void BuildDungeon::Load(ifstream& _file)
     {
         for (vec3 origin : Origins)
         {
-            // Read all wall locations
+            
             for (vec3 wall : ObjLocation)
             {
                 vec3 newOrigin = wall + origin;
 
-                // Add the wall location to the vector
+                
                 finalObjLocations.push_back(newOrigin);
             }
         }
@@ -179,19 +190,18 @@ void BuildDungeon::Load(ifstream& _file)
     {
         for (vec3 origin : Origins)
         {
-            // Read all wall locations
+            //read torch list
             for (vec3 torch : ObjLocation)
             {
+
                 vec3 newOrigin = torch + origin;
 
-                // Add the wall location to the vector
+                //place torches at locations
                 finalTorchLocations.push_back(newOrigin);
 
-                vec3 lightOffset = newOrigin + glm::vec3(0.0, 1.0, 0.0);
-                PlaceLights* light = new PlaceLights(lightOffset, m_name);
-
+                torchLight->getTorchObjLoc(newOrigin);
                 
-                //std::cout << glm::to_string(lightOffset) << std::endl;
+
             }
         }
         Origins.clear();
@@ -202,6 +212,7 @@ void BuildDungeon::Load(ifstream& _file)
 
 void BuildDungeon::Render()
 {
+    //render of walls
     for (const auto& position : finalObjLocations)
     {
         
@@ -213,7 +224,7 @@ void BuildDungeon::Render()
         ExampleGO::Render();
     
     }
-
+    //render of torches
     for (const auto& position : finalTorchLocations)
     {
 
@@ -261,3 +272,5 @@ void BuildDungeon::Render()
     m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.z), glm::vec3(0.0f, 0.0f, 1.0f));
     m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(m_scale));*/
 }
+
+
