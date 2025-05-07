@@ -9,7 +9,7 @@ unsigned int m_prog = 0;
 
 //shared ptr to hold information of torchlightobj postions
 //so it can be used to place torch lights at those postions
-std::shared_ptr<std::vector<torchLight>> TorchLight::globalTorchLights = std::make_shared<std::vector<torchLight>>();
+std::shared_ptr<std::vector<torchLight>> TorchLight::globalTorchLightPos = std::make_shared<std::vector<torchLight>>();
 
 TorchLight::TorchLight()
 {
@@ -39,9 +39,9 @@ void TorchLight::Load(ifstream& _file)
 
 void TorchLight::Tick(float _dt)  
 {  
-   static std::vector<float> timeAccumulators(globalTorchLights->size(), 0.0f);
+   static std::vector<float> timeAccumulators(globalTorchLightPos->size(), 0.0f);
 
-   for (size_t i = 0; i < globalTorchLights->size(); ++i)
+   for (size_t i = 0; i < globalTorchLightPos->size(); ++i)
    {
 	   // Update the time accumulator for the current torch
 	   timeAccumulators[i] += _dt;
@@ -56,13 +56,13 @@ void TorchLight::Tick(float _dt)
 	   float flickerEffect = sineWave + randomFlicker;
 
 	   // Apply the flicker effect to the torchlight's color
-	   (*globalTorchLights)[i].m_col.x = clamp((*globalTorchLights)[i].m_col.x + flickerEffect, 0.8f, 1.0f); // Red channel
-	   (*globalTorchLights)[i].m_col.y = clamp((*globalTorchLights)[i].m_col.y + flickerEffect, 0.4f, 0.6f); // Green channel
-	   (*globalTorchLights)[i].m_col.z = 0.0f; // Blue channel remains 0 for a fiery look
+	   (*globalTorchLightPos)[i].m_col.x = clamp((*globalTorchLightPos)[i].m_col.x + flickerEffect, 0.8f, 1.0f); // Red channel
+	   (*globalTorchLightPos)[i].m_col.y = clamp((*globalTorchLightPos)[i].m_col.y + flickerEffect, 0.4f, 0.6f); // Green channel
+	   (*globalTorchLightPos)[i].m_col.z = 0.0f; // Blue channel remains 0 for a fiery look
    }  
 }
 
-void TorchLight::SetPointLights(unsigned int _prog, const std::vector<torchLight> torchLights)
+void TorchLight::SetLights(unsigned int _prog, const std::vector<torchLight> torchLights)
 {
 	glUseProgram(_prog);
 	//Pass the number of lights
@@ -84,8 +84,8 @@ void TorchLight::SetPointLights(unsigned int _prog, const std::vector<torchLight
 
 void TorchLight::SetRenderValues(unsigned int _prog)  
 {  
-   // Use the globalTorchLights shared pointer instead of undefined torchLights  
-   SetPointLights(_prog, *globalTorchLights);  
+   //Pass in the shared pointer
+	SetLights(_prog, *globalTorchLightPos);
 
 }
 
@@ -98,6 +98,6 @@ void TorchLight::getTorchObjLoc(vec3 torchPos)
 	light.m_col = m_col;
 	light.m_att = m_att;
 
-	globalTorchLights->emplace_back(light);
+	globalTorchLightPos->emplace_back(light);
 
 }

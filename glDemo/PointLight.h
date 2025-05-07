@@ -17,11 +17,11 @@ public:
 	~PointLight();
 
 	//load from manifest
-	virtual void Load(ifstream& _file);
+	void Load(ifstream& _file);
 
 	void Tick(float _dt);
 
-	void SetPointLights(unsigned int _prog, const std::vector<pointLight> _lights);
+	void SetLights(unsigned int _prog, const std::vector<pointLight> _lights);
 
 	//set render values
 	virtual void SetRenderValues(unsigned int _prog);

@@ -29,7 +29,6 @@ void ExampleGO::Load(ifstream& _file)
 	else
 		normalNeeded = false;
 
-
 }
 
 void ExampleGO::Tick(float _dt)

@@ -41,15 +41,14 @@
 //
 //};
 
-
 class TorchLight;
 
 BuildDungeon::BuildDungeon()
 {
-    
+
     m_noWalls = 0.0f;
     m_noOrigin = 0.0f;
-    
+
 }
 
 BuildDungeon::~BuildDungeon()
@@ -97,7 +96,6 @@ void BuildDungeon::Load(ifstream& _file)
         ObjLocation.push_back(objLocs);
     }
 	
-
 
     if (m_name == "DUNGEONMAIN")
     {
@@ -207,7 +205,6 @@ void BuildDungeon::Load(ifstream& _file)
         Origins.clear();
         ObjLocation.clear();
     }
-
 }
 
 void BuildDungeon::Render()
@@ -237,40 +234,31 @@ void BuildDungeon::Render()
 
     }
 
-    //for (const auto& position : finalTorchLocations)
-    //{
-    //    
-    //    // Create modelMatrix for position
-    //    m_worldMatrix = glm::translate(glm::mat4(1.0f), (position));
-    //    m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(m_scale));
-
-    //    GameObject::PreRender();
-    //    ExampleGO::Render();
-
-    //}
-
-    /*vec3* m_walls = new vec3[m_noWalls];
-
-    for (int i = 0; i < m_noWalls; i++)
-    {
-        
-        m_walls[i].x;
-        m_walls[i].y;
-        m_walls[i].z;
-
-    }
-    m_worldMatrix = glm::translate(glm::mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
-
-    m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(1.0, 1.5, 1.0));*/
-
-
-    /*m_rot += m_rot_incr;
-
-    m_worldMatrix = glm::translate(mat4(1.0), vec3(m_pos));
-    m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.x), glm::vec3(1.0f, 0.0f, 0.0f));
-    m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.y), glm::vec3(0.0f, 1.0f, 0.0f));
-    m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.z), glm::vec3(0.0f, 0.0f, 1.0f));
-    m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(m_scale));*/
 }
+
+//Storing wall locations to send to wandering objects
+vector<vec3> BuildDungeon::storeWallLocs()
+{
+    for (const auto& loc : finalObjLocations)
+    {
+        std::cout << "x: " << loc.x << ", y: " << loc.y << ", z: " << loc.z << std::endl;
+    }
+    return finalObjLocations;
+}
+
+//pointer kept being sent over as null and couldnt work out how to fix
+// so just commented out for now
+//BuildDungeon* BuildDungeon::GetPointer()
+//{
+//	if (this == nullptr)
+//	{
+//		std::cerr << "BuildDungeon pointer is null!" << std::endl;
+//		return nullptr;
+//	}
+//    return this;
+//}
+
+
+
 
 

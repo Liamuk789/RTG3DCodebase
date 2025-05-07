@@ -102,4 +102,11 @@ void main()
 
     // Output final color with alpha
     FragColour = vec4(finalColour.rgb, alpha);
+
+    //Grayscale conversion
+    // Convert to grayscale
+    //float grayscale = 0.299 * finalColour.r + 0.587 * finalColour.g + 0.114 * finalColour.b;
+
+    // Output grayscale color with alpha
+    //FragColour = vec4(vec3(grayscale), alpha);
 }

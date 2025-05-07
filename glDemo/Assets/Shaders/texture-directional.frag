@@ -91,4 +91,11 @@ void main(void) {
     // Combine light contributions
     vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse;
     fragColour = vec4(finalColour, surfaceColour.a);
+    
+    //Grayscale Conversion
+    // Convert to grayscale
+    //float grayscale = 0.299 * finalColour.r + 0.587 * finalColour.g + 0.114 * finalColour.b;
+
+    // Output grayscale color
+    //fragColour = vec4(vec3(grayscale), surfaceColour.a);
 }

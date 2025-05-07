@@ -17,6 +17,7 @@
 
 #include <assert.h>
 
+Wandering* wandering = nullptr;
 
 Scene::Scene()
 {
@@ -372,7 +373,7 @@ void Scene::Load(ifstream& _file)
 		_file >> dummy >> type; _file.ignore(256, '\n');
 		GameObject* newGO = GameObjectFactory::makeNewGO(type);
 		newGO->Load(_file);
-
+		
 
 		m_GameObjects.push_back(newGO);
 
@@ -381,6 +382,16 @@ void Scene::Load(ifstream& _file)
 		cout << "}\n";
 	}
 
+
+	//Attempt to use the same pointer used for setting the wall locations
+	//to give to the wandering objects so they would know where the walls were
+	//however this is not working
+	/*if (_file.eof())
+	{
+		wandering->setDungeonPointer(buildDungeon->GetPointer());
+
+		
+	}*/
 
 }
 
@@ -419,6 +430,14 @@ void Scene::Init()
 	}
 }
 
+//also part of trying to getbuild dungeon pointer to send to wandering
+//void Scene::getDungeonPtr()
+//{
+//	buildDungeon->GetPointer();
+//}
+
+
+
 void Scene::changeCamera()
 {
 	m_useCameraIndex++;
@@ -429,10 +448,6 @@ void Scene::changeCamera()
 
 	m_useCamera = *it;
 }
-
-
-
-
 
 // Modify the Scene::mouseMove method to use the window member variable
 void Scene::mouseMove(float dx, float dy)

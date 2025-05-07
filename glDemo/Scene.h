@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "BuildDungeon.h"
+
 using namespace std;
 
 class GameObject;
@@ -64,6 +66,8 @@ public:
 
 	//initialise links between items in the scene
 	void Init();
+
+	void getDungeonPtr();
 
 	void changeCamera();
 

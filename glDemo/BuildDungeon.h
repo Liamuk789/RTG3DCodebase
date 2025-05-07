@@ -3,13 +3,14 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "TorchLight.h"
+#include "Wandering.h"
 
 
 class BuildDungeon : public ExampleGO
 {
 private:
 
-   // Scene* scene;
+   //Scene* scene;
 
 
 public:
@@ -22,10 +23,11 @@ public:
 
     void Render();
 
+	//BuildDungeon* GetPointer();
 
-	std::vector<vec3>finalTorchLocations;
+	vector<vec3> storeWallLocs();
 
-
+	
 
 protected:
 
@@ -37,6 +39,7 @@ protected:
 	float		m_noOrigin;
 
 	std::vector<vec3>finalObjLocations;
+	std::vector<vec3>finalTorchLocations;
 	std::vector<vec3>finalGlassLocations;
 	
 	vec3		origin;

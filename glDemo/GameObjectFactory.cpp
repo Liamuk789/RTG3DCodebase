@@ -1,6 +1,7 @@
 #include "GameObjectFactory.h"
 #include "GameObject.h"
 #include "ExampleGO.h"
+#include "Wandering.h"
 #include "BuildDungeon.h"
 #include <assert.h>
 
@@ -16,6 +17,10 @@ GameObject* GameObjectFactory::makeNewGO(string _type)
 	else if (_type == "EXAMPLE")
 	{
 		return new ExampleGO();
+	}
+	else if (_type == "WANDER")
+	{
+		return new Wandering();
 	}
 	else if (_type == "DUNGEON")
 	{

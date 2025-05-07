@@ -79,7 +79,7 @@ void PointLight::Tick(float _dt)
     }
 }
 
-void PointLight::SetPointLights(unsigned int _prog, const std::vector<pointLight> _lights)
+void PointLight::SetLights(unsigned int _prog, const std::vector<pointLight> _lights)
 {
 	glUseProgram(_prog);
 
@@ -133,5 +133,5 @@ void PointLight::SetRenderValues(unsigned int _prog)
     //        glUniform3fv(loc, 1, glm::value_ptr(light.m_att));
     //}
 
-	SetPointLights(_prog, lights);
+    SetLights(_prog, lights);
 }

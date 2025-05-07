@@ -13,18 +13,18 @@ class TorchLight :
 	public PointLight
 {
 
-	static std::shared_ptr<std::vector<torchLight>> globalTorchLights;
+	static std::shared_ptr<std::vector<torchLight>> globalTorchLightPos;
 
 public:
 
 	TorchLight();
 	~TorchLight();
 
-	virtual void Load(ifstream& _file);
+	void Load(ifstream& _file);
 
 	void Tick(float _dt);
 
-	void SetPointLights(unsigned int _prog, const std::vector<torchLight> _lights);
+	void SetLights(unsigned int _prog, const std::vector<torchLight> _lights);
 
 	void SetRenderValues(unsigned int _prog);
 
