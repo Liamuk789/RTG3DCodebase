@@ -1,6 +1,8 @@
 #include "FPCamera.h"
 
 
+
+
 void FPCamera::calculateDerivedValues()
 {
 	const float theta_ = glm::radians<float>(m_theta);
@@ -23,6 +25,7 @@ FPCamera::FPCamera()
 	m_nearPlane = 0.1f;
 	m_farPlane = 500.0f;
 	cam_Speed = 5.0f;
+
 	
 }
 
@@ -38,7 +41,6 @@ void FPCamera::Tick(float _dt, float _width, float _height)
 
 	m_viewMatrix = glm::lookAt(m_pos, m_lookAt, vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::radians(m_fov), aspect_ratio, m_near, m_far);
-	
 	
 }
 
@@ -57,7 +59,7 @@ void FPCamera::Load(ifstream& _file)
 
 void FPCamera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 {
-
+	
 }
 
 void FPCamera::SetRenderValues(unsigned int _prog)

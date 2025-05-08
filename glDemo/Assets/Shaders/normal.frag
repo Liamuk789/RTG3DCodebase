@@ -34,12 +34,12 @@ out vec4 FragColour;
 
 void main() 
 {
-    // Sample and transform the normal map
+    //Sample and transform the normal map
     vec3 normal = texture(normalMap, texCoord.xy).rgb;
     normal = normal * 2.0 - 1.0; // Convert from [0,1] to [-1,1]
     normal = normalize(TBN * normal); // Transform to world space
 
-     // Sample the base texture (including alpha)
+    //Sample the base texture (including alpha)
     vec4 baseTexture = texture(basetexture, texCoord.xy);
     vec3 baseColour = baseTexture.rgb;
     float alpha = baseTexture.a; // Sample alpha channel

@@ -3,7 +3,13 @@
 
 
 class AIModel;
-
+enum class MovementDirection
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+};
 
 class Wandering :
 	public ExampleGO
@@ -19,21 +25,17 @@ public:
 	//update _window allows for Keyboard access
 	void Tick(float _dt);
 
-	void moveDirection();
+	void moveDirection(std::vector<MovementDirection> allowedDirections);
+
 
 	void turnPlace();
 
 
+
 private:
 
-	glm::vec3 m_speed;
-
-	enum class MovementDirection
-	{
-		UP,
-		DOWN,
-		LEFT,
-		RIGHT
-	};
-	MovementDirection m_state;
+	glm::vec3 movementDir;
+	float m_speed;
+	MovementDirection m_MoveDir;
+	
 };

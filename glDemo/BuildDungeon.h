@@ -3,7 +3,6 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "TorchLight.h"
-#include "Wandering.h"
 
 
 class BuildDungeon : public ExampleGO

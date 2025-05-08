@@ -109,7 +109,7 @@ void OrthoCamera::Move(glm::vec3 _d, float _dt)
 
 	float speed = cam_Speed * _dt;
 
-	// Move both the position and the lookAt point
+	//Move both the position and the lookAt point
 	m_pos += (forward * _d.z + right * _d.x) * speed;
 	m_lookAt += (forward * _d.z + right * _d.x) * speed;
 

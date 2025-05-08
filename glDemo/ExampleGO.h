@@ -27,6 +27,8 @@ public:
 	virtual void Init(Scene* _scene);
 
 
+
+
 protected:
 
 	string m_ShaderName, m_TexName, m_ModelName, m_NormalName;

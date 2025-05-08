@@ -13,11 +13,9 @@
 #include "ArcballCamera.h"
 #include "FPCamera.h"
 #include "OrthoCamera.h"
-#include "BuildDungeon.h"
 
 #include <assert.h>
 
-Wandering* wandering = nullptr;
 
 Scene::Scene()
 {
@@ -149,75 +147,59 @@ Shader* Scene::GetShader(string _shaderName)
 
 
 void Scene::Render() {
-    for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) {
-        //std::cout << "Rendering GameObject: " << (*it)->GetName() << std::endl;
-        if ((*it)->GetRP() & RP_OPAQUE) {
-            GLuint SP = (*it)->GetShaderProg();
-            glUseProgram(SP);
-
-            m_useCamera->SetRenderValues(SP);
-            SetShaderUniforms(SP);
-
-			(*it)->PreRender();
-			(*it)->Render();
-
-
-            /*if (m_useCamera && m_useCamera->GetType() == "ARCBALL") {
-                ArcballCamera* arcballCam = dynamic_cast<ArcballCamera*>(m_useCamera);
-                if (arcballCam) {
-                    glm::mat4 projectionMatrix = arcballCam->projectionTransform();
-                    glm::mat4 viewMatrix = arcballCam->viewTransform();
-
-                    GLint pLocation;
-                    Helper::SetUniformLocation(SP, "viewMatrix", &pLocation);
-                    glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&viewMatrix);
-
-                    Helper::SetUniformLocation(SP, "projMatrix", &pLocation);
-                    glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
-                }
-            }
-			if (m_useCamera && m_useCamera->GetType() == "FPC") {
-				FPCamera* firstCam = dynamic_cast<FPCamera*>(m_useCamera);
-				if (firstCam) {
-					glm::mat4 projectionMatrix = firstCam->projectionTransform();
-					glm::mat4 viewMatrix = firstCam->viewTransform();
-
-					GLint pLocation;
-					Helper::SetUniformLocation(SP, "viewMatrix", &pLocation);
-					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&viewMatrix);
-
-					Helper::SetUniformLocation(SP, "projMatrix", &pLocation);
-					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
-				}
-			}
-			if (m_useCamera && m_useCamera->GetType() == "ORTHO") {
-				OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
-				if (orthoCam) {
-					glm::mat4 projectionMatrix = orthoCam->projectionTransform();
-					glm::mat4 viewMatrix = orthoCam->viewTransform();
-
-					GLint pLocation;
-					Helper::SetUniformLocation(SP, "viewMatrix", &pLocation);
-					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&viewMatrix);
-
-					Helper::SetUniformLocation(SP, "projMatrix", &pLocation);
-					glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&projectionMatrix);
-				}
-			}*/
-
-            
-			
-        }
-		if ((*it)->GetRP() & RP_TRANSPARENT) {
+	//Render of opaque objects first
+	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) 
+	{
+		if ((*it)->GetRP() & RP_OPAQUE) 
+		{
 			GLuint SP = (*it)->GetShaderProg();
 			glUseProgram(SP);
+
 			m_useCamera->SetRenderValues(SP);
 			SetShaderUniforms(SP);
+
 			(*it)->PreRender();
 			(*it)->Render();
-			
 		}
-    }
+	}
+
+	//put all transparent objects in a vector ready to sort
+	std::vector<GameObject*> transparentObjects;
+	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) 
+	{
+		if ((*it)->GetRP() & RP_TRANSPARENT) 
+		{
+			transparentObjects.push_back(*it);
+		}
+	}
+
+	//sort all objects from furthest to closest so they render through eachother
+	std::sort(transparentObjects.begin(), transparentObjects.end(), [this](GameObject* a, GameObject* b) 
+		{
+		glm::vec3 camPos = m_useCamera->GetPos();
+		float distA = glm::length(a->GetPosition() - camPos);
+		float distB = glm::length(b->GetPosition() - camPos);
+		return distA > distB;
+		});
+
+	//Render of transparent objects last
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDepthMask(GL_FALSE);
+
+	for (GameObject* obj : transparentObjects) {
+		GLuint SP = obj->GetShaderProg();
+		glUseProgram(SP);
+
+		m_useCamera->SetRenderValues(SP);
+		SetShaderUniforms(SP);
+
+		obj->PreRender();
+		obj->Render();
+	}
+
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
 }
 
 // Existing code...
@@ -386,6 +368,7 @@ void Scene::Load(ifstream& _file)
 	//Attempt to use the same pointer used for setting the wall locations
 	//to give to the wandering objects so they would know where the walls were
 	//however this is not working
+
 	/*if (_file.eof())
 	{
 		wandering->setDungeonPointer(buildDungeon->GetPointer());

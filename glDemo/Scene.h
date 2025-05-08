@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "BuildDungeon.h"
+
 
 using namespace std;
 
@@ -15,7 +15,6 @@ class Camera;
 class ArcballCamera;
 class FPCamera;
 class OrthoCamera;
-class BuildDungeon;
 
 class Light;
 class AIModel;
@@ -25,9 +24,6 @@ class Shader;
 //Note quite a proper scene graph but this contains data structures for all of our bits and pieces we want to draw
 class Scene
 {
-private:
-
-	BuildDungeon* buildDungeon;
 
 
 public:
@@ -66,8 +62,6 @@ public:
 
 	//initialise links between items in the scene
 	void Init();
-
-	void getDungeonPtr();
 
 	void changeCamera();
 

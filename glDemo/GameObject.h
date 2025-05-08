@@ -34,6 +34,7 @@ public:
 	void SetName(string _name) { m_name = _name; }
 	string GetName() { return m_name; }
 	GLuint GetShaderProg() { return m_ShaderProg; }
+	vec3 GetPosition() { return m_pos; }
 
 	//scene maybe needed for more involved cameras to connect to relvant GOs and lights/shaders etc
 	virtual void Init(Scene* _scene);
