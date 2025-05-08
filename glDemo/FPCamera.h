@@ -33,11 +33,12 @@ public:
 
 	
 	FPCamera();
+	~FPCamera();
 
-	void calculateDerivedValues();
+	virtual void calculateDerivedValues();
 
-	void Tick(float _dt, float _width, float _height);
-	void Load(ifstream& _file) override;
+	virtual void Tick(float _dt, float _width, float _height);
+	virtual void Load(ifstream& _file) override;
 	void Init(float _screenWidth, float _screenHeight, Scene* _scene)override;
 	void SetRenderValues(unsigned int _prog) override;
 

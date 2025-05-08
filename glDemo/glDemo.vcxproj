@@ -143,6 +143,7 @@
     <ClInclude Include="BuildDungeon.h" />
     <ClInclude Include="CameraFactory.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DogCam.h" />
     <ClInclude Include="FPCamera.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="core.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="PrincipleAxes.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="shader_setup.h" />
+    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="stringHelp.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
@@ -181,6 +183,7 @@
     <ClCompile Include="BuildDungeon.cpp" />
     <ClCompile Include="CameraFactory.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DogCam.cpp" />
     <ClCompile Include="FPCamera.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="core.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="PrincipleAxes.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="shader_setup.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="TorchLight.cpp" />

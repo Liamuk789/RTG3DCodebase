@@ -13,6 +13,7 @@
 #include "ArcballCamera.h"
 #include "FPCamera.h"
 #include "OrthoCamera.h"
+#include "DogCam.h"
 
 #include <assert.h>
 
@@ -42,6 +43,17 @@ void Scene::Update(float _dt, float _screenWidth, float _screenHeight)
 	for (list<Camera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
 	{
 		(*it)->Tick(_dt, _screenWidth, _screenHeight);
+		if ((*it)->GetType() == "DOGCAM")
+		{
+			DogCam* dogCam = dynamic_cast<DogCam*>(*it);
+			ExampleGO* exampleGO = dynamic_cast<ExampleGO*>(GetGameObject("P_ALIEN"));
+			if (dogCam && exampleGO)
+			{
+				dogCam->SetExampleGO(*exampleGO);
+				dogCam->Tick(_dt, _screenWidth, _screenHeight);
+			}
+		}
+		
 	}
 
 	//update all GameObjects
@@ -430,6 +442,7 @@ void Scene::changeCamera()
 	std::advance(it, m_useCameraIndex);
 
 	m_useCamera = *it;
+	cout << "Camera changed to: " << m_useCamera->GetName() << endl;
 }
 
 // Modify the Scene::mouseMove method to use the window member variable
@@ -477,6 +490,7 @@ void Scene::moveCamera(glm::vec3 direction, float _dt)
 	{
 		FPCamera* fpCam = dynamic_cast<FPCamera*>(m_useCamera);
 		OrthoCamera* orthoCam = dynamic_cast<OrthoCamera*>(m_useCamera);
+		DogCam* dogCam = dynamic_cast<DogCam*>(m_useCamera);
 		if (fpCam)
 		{
 			fpCam->Move(direction, _dt);
@@ -484,6 +498,10 @@ void Scene::moveCamera(glm::vec3 direction, float _dt)
 		if (orthoCam)
 		{
 			orthoCam->Move(direction, _dt);
+		}
+		if (dogCam)
+		{
+			dogCam->Move(direction, _dt);
 		}
 	}
 

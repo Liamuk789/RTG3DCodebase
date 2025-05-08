@@ -29,6 +29,11 @@ FPCamera::FPCamera()
 	
 }
 
+FPCamera::~FPCamera()
+{
+
+}
+
 
 void FPCamera::Tick(float _dt, float _width, float _height) 
 {

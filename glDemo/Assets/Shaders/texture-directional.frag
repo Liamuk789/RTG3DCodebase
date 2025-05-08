@@ -14,11 +14,23 @@ struct TorchLight {
     vec3 torAtt;
 };
 
+struct SpotLight {
+    vec3 spotPos;
+    vec3 spotDir;
+    vec3 spotCol;
+    vec3 spotAtt;
+    float spotCutoff; // Cosine of the cutoff angle
+    float spotOuterCutoff; // Cosine of the outer cutoff angle for smooth edges
+};
+
 uniform int numPointLights;
 uniform PointLight pointLights[10];
 
 uniform int numTorchLights;
 uniform TorchLight torchLights[36];
+
+uniform int numSpotLights;
+uniform SpotLight spotLights[12];
 
 uniform vec3 DIRDir;
 uniform vec3 DIRCol;
@@ -88,8 +100,38 @@ void main(void) {
         }
     }
 
+        // Spotlight calculations
+    vec3 totalSpotDiffuse = vec3(0.0);
+    for (int i = 0; i < numSpotLights; i++) {
+        vec3 surfaceToLightVec = spotLights[i].spotPos - inputFragment.surfaceWorldPos;
+        vec3 surfaceToLightNormalised = normalize(surfaceToLightVec);
+
+        float spotL = max(dot(N, surfaceToLightNormalised), 0.0);
+        float spotD = length(surfaceToLightVec);
+
+        float maxCalcDistance = 15.0f;
+
+        if (spotD < maxCalcDistance) {
+            float kc = spotLights[i].spotAtt.x;
+            float kl = spotLights[i].spotAtt.y;
+            float kq = spotLights[i].spotAtt.z;
+
+            float atten = 1.0 / (kc + (kl * spotD) + (kq * (spotD * spotD)));
+
+            // Spotlight cone calculations
+            float theta = dot(surfaceToLightNormalised, normalize(-spotLights[i].spotDir));
+            float epsilon = spotLights[i].spotCutoff - spotLights[i].spotOuterCutoff;
+            float intensity = clamp((theta - spotLights[i].spotOuterCutoff) / epsilon, 0.0, 1.0);
+
+            atten *= intensity;
+
+            totalSpotDiffuse += surfaceColour.rgb * spotLights[i].spotCol * spotL * atten;
+        }
+    }
+
     // Combine light contributions
-    vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse;
+    vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse + totalSpotDiffuse;
+    finalColour = clamp(finalColour, 0.0, 1.0);
     fragColour = vec4(finalColour, surfaceColour.a);
     
     //Grayscale Conversion

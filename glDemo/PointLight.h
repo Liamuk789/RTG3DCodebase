@@ -33,6 +33,7 @@ public:
 
 protected:
 	
+	vec3 m_direction;
 	vec3 m_att;
 	float m_noLights;
 	std::vector<pointLight> lights;
