@@ -35,11 +35,11 @@ void DogCam::calculateDerivedValues()
 
 void DogCam::Tick(float _dt, float _width, float _height)
 {
-    // Call the base class Tick to handle camera updates
+    
 	FPCamera::Tick(_dt, _width, _height);
 
-    // Update the camera's position relative to the ExampleGO
-    m_pos = m_ExampleGO.GetPosition() + glm::vec3(0.0f, 1.0f, 0.0f);
+    
+    //m_pos = m_ExampleGO.GetPosition() + glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
 void DogCam::SetExampleGO(ExampleGO _exampleGO)

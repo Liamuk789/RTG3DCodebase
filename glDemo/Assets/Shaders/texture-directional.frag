@@ -30,7 +30,7 @@ uniform int numTorchLights;
 uniform TorchLight torchLights[36];
 
 uniform int numSpotLights;
-uniform SpotLight spotLights[12];
+uniform SpotLight spotLights[13];
 
 uniform vec3 DIRDir;
 uniform vec3 DIRCol;
@@ -45,7 +45,6 @@ in SimplePacket {
 layout (location=0) out vec4 fragColour;
 
 void main(void) {
-    
     vec3 N = normalize(inputFragment.surfaceNormal);
     vec4 surfaceColour = texture2D(texture, inputFragment.texCoord);
 
@@ -56,6 +55,8 @@ void main(void) {
     vec3 directionalAmbient = DIRAmb;
 
     vec3 totalPointDiffuse = vec3(0.0);
+    vec3 totalTorchDiffuse = vec3(0.0);
+    vec3 totalSpotDiffuse = vec3(0.0);
 
     // Point light calculations
     for (int i = 0; i < numPointLights; i++) {
@@ -78,6 +79,7 @@ void main(void) {
             totalPointDiffuse += surfaceColour.rgb * pointLights[i].pntCol * pntL * atten;
         }
     }
+
     // Torch light calculations
     for (int i = 0; i < numTorchLights; i++) {
         vec3 surfaceToLightVec = torchLights[i].torPos - inputFragment.surfaceWorldPos;
@@ -96,12 +98,11 @@ void main(void) {
             float atten = 1.0 / (kc + (kl * torD) + (kq * (torD * torD)));
             float edgeSoftness = smoothstep(maxCalcDistance * 0.9, maxCalcDistance, torD);
             atten *= 1.0 - edgeSoftness;
-            totalPointDiffuse += surfaceColour.rgb * torchLights[i].torCol * torL * atten;
+            totalTorchDiffuse += surfaceColour.rgb * torchLights[i].torCol * torL * atten;
         }
     }
 
-        // Spotlight calculations
-    vec3 totalSpotDiffuse = vec3(0.0);
+    // Spotlight calculations
     for (int i = 0; i < numSpotLights; i++) {
         vec3 surfaceToLightVec = spotLights[i].spotPos - inputFragment.surfaceWorldPos;
         vec3 surfaceToLightNormalised = normalize(surfaceToLightVec);
@@ -130,7 +131,7 @@ void main(void) {
     }
 
     // Combine light contributions
-    vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse + totalSpotDiffuse;
+    vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse + totalTorchDiffuse + totalSpotDiffuse;
     finalColour = clamp(finalColour, 0.0, 1.0);
     fragColour = vec4(finalColour, surfaceColour.a);
     

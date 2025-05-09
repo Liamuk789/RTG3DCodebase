@@ -3,12 +3,13 @@
 
 struct spotLight
 {
-	vec3 m_pos;
-	vec3 m_col;
-	vec3 m_att;
-	vec3 m_direction;
+	vec3 m_spotPos;
+	vec3 m_spotCol;
+	vec3 m_spotDirection;
+	vec3 m_spotAtt;
 	float m_cutoff;
 	float m_outerCutoff;
+
 };
 
 

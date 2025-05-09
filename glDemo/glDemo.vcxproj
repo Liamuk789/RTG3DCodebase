@@ -218,6 +218,8 @@
     <None Include="Assets\Shaders\flatColour.vert" />
     <None Include="Assets\Shaders\normal.frag" />
     <None Include="Assets\Shaders\normal.vert" />
+    <None Include="Assets\Shaders\portal.frag" />
+    <None Include="Assets\Shaders\portal.vert" />
     <None Include="Assets\Shaders\texture-directional.frag" />
     <None Include="Assets\Shaders\texture-directional.vert" />
   </ItemGroup>

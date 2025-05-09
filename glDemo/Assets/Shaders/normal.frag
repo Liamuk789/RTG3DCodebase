@@ -20,8 +20,8 @@ struct SpotLight {
     vec3 spotDir;
     vec3 spotCol;
     vec3 spotAtt;
-    float spotCutoff;        // Cosine of the cutoff angle
-    float spotOuterCutoff;   // Cosine of the outer cutoff angle for smooth edges
+    float spotCutoff;
+    float spotOuterCutoff;
 };
 
 uniform int numPointLights;
@@ -31,7 +31,7 @@ uniform int numTorchLights;
 uniform TorchLight torchLights[36];
 
 uniform int numSpotLights;
-uniform SpotLight spotLights[12];
+uniform SpotLight spotLights[13];
 
 uniform vec3 DIRDir;
 uniform vec3 DIRCol;
@@ -44,17 +44,21 @@ in mat3 TBN;
 
 out vec4 FragColour;
 
-void main() 
-{
+void main() {
     // Sample and transform the normal map
-    vec3 normal = texture(normalMap, texCoord.xy).rgb;
+    vec3 normal = texture(normalMap, texCoord).rgb;
     normal = normal * 2.0 - 1.0; // Convert from [0,1] to [-1,1]
     normal = normalize(TBN * normal); // Transform to world space
 
-    // Sample the base texture (including alpha)
-    vec4 baseTexture = texture(basetexture, texCoord.xy);
-    vec3 baseColour = baseTexture.rgb;
-    float alpha = baseTexture.a; // Sample alpha channel
+    // Fallback to interpolated normal if normal map is invalid
+    if (length(normal) < 0.1) {
+        normal = normalize(surfaceNormal);
+    }
+
+    // Sample the base texture
+    vec4 surfaceColour = texture(basetexture, texCoord);
+    vec3 baseColour = surfaceColour.rgb;
+    float alpha = surfaceColour.a;
 
     // Directional light calculations
     vec3 normalizedDIRDir = normalize(DIRDir);
@@ -96,7 +100,7 @@ void main()
         float torL = max(dot(normal, surfaceToLightNormalised), 0.0);
         float torD = length(surfaceToLightVec);
 
-        float maxCalcDistance = 10.0f;
+        float maxCalcDistance = 12.0f;
 
         if (torD < maxCalcDistance) {
             float kc = torchLights[i].torAtt.x;
@@ -126,10 +130,9 @@ void main()
             float kq = spotLights[i].spotAtt.z;
 
             float atten = 1.0 / (kc + (kl * spotD) + (kq * (spotD * spotD)));
-            
+
             // Spotlight cone calculations
-            vec3 spotDir = normalize(spotLights[i].spotDir);
-            float theta = dot(surfaceToLightNormalised, spotDir);
+            float theta = dot(surfaceToLightNormalised, normalize(-spotLights[i].spotDir));
             float epsilon = spotLights[i].spotCutoff - spotLights[i].spotOuterCutoff;
             float intensity = clamp((theta - spotLights[i].spotOuterCutoff) / epsilon, 0.0, 1.0);
 
@@ -141,9 +144,11 @@ void main()
 
     // Combine light contributions
     vec3 finalColour = directionalAmbient + directionalDiffuse + totalPointDiffuse + totalTorchDiffuse + totalSpotDiffuse;
+    finalColour = clamp(finalColour, 0.0, 1.0);
 
     // Output final color with alpha
-    FragColour = vec4(finalColour.rgb, alpha);
+    FragColour = vec4(finalColour, alpha);
+}
 
     // Grayscale conversion
     // Convert to grayscale
@@ -151,4 +156,4 @@ void main()
 
     // Output grayscale color with alpha
     //FragColour = vec4(vec3(grayscale), alpha);
-}
+

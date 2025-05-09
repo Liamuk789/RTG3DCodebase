@@ -47,10 +47,6 @@ struct KeyState
 	bool backward;
 	bool left;
 	bool right;
-	bool forRight;
-	bool forLeft;
-	bool backRight;
-	bool backLeft;
 
 };
 

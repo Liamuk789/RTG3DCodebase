@@ -100,6 +100,7 @@ void Wandering::turnPlace()
 		//check object postion against struct
 		if (glm::distance(glm::vec2(m_pos.x, m_pos.z), glm::vec2(tp.positions[i].x, tp.positions[i].z)) < threshold)
 		{	
+			//Switch would be better+++++++++++++++++++++++++++++++++++++++++++++++
 			//depending on which location they are at, give available directions
 			//to stop them moving out of the map.
 			std::vector<MovementDirection> allowedDirections;

@@ -267,5 +267,11 @@
     <None Include="Assets\Shaders\normal.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Assets\Shaders\portal.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\portal.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

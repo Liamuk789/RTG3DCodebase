@@ -159,6 +159,11 @@ Shader* Scene::GetShader(string _shaderName)
 
 
 void Scene::Render() {
+
+	static float elaspedTime = 0.0f;
+	elaspedTime += 0.01f;
+
+
 	//Render of opaque objects first
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) 
 	{
@@ -166,6 +171,11 @@ void Scene::Render() {
 		{
 			GLuint SP = (*it)->GetShaderProg();
 			glUseProgram(SP);
+
+			GLint timeLoc;
+			Helper::SetUniformLocation(SP, "time", &timeLoc);
+			glUniform1f(timeLoc, elaspedTime);
+
 
 			m_useCamera->SetRenderValues(SP);
 			SetShaderUniforms(SP);
@@ -203,6 +213,10 @@ void Scene::Render() {
 		GLuint SP = obj->GetShaderProg();
 		glUseProgram(SP);
 
+		GLint timeLoc;
+		Helper::SetUniformLocation(SP, "time", &timeLoc);
+		glUniform1f(timeLoc, elaspedTime);
+
 		m_useCamera->SetRenderValues(SP);
 		SetShaderUniforms(SP);
 
@@ -212,6 +226,7 @@ void Scene::Render() {
 
 	glDepthMask(GL_TRUE);
 	glDisable(GL_BLEND);
+	glBlendFunc(GL_ONE, GL_ZERO);
 }
 
 // Existing code...
