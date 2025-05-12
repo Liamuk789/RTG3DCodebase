@@ -19,8 +19,8 @@ struct SpotLight {
     vec3 spotDir;
     vec3 spotCol;
     vec3 spotAtt;
-    float spotCutoff; // Cosine of the cutoff angle
-    float spotOuterCutoff; // Cosine of the outer cutoff angle for smooth edges
+    float spotCutoff;
+    float spotOuterCutoff;
 };
 
 uniform int numPointLights;
