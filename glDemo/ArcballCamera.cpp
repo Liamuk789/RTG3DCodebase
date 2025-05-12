@@ -1,6 +1,7 @@
 #include "ArcballCamera.h"
 
 
+
 //
 // Private API
 //
@@ -79,6 +80,8 @@ void ArcballCamera::Tick(float _dt, float _width, float _height)
 {
 	setAspect(_width / _height);
 	calculateDerivedValues();
+	
+	
 }
 
 

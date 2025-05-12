@@ -13,6 +13,7 @@ class DogCam : public FPCamera
 	// Projection / frustum values
 	float				m_fovY, m_aspect, m_nearPlane, m_farPlane;
 	float				cam_Speed;
+	
 
 	ExampleGO m_ExampleGO;
 

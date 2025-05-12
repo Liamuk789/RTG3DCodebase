@@ -39,13 +39,13 @@ void ExampleGO::Tick(float _dt)
 void ExampleGO::PreRender()
 {
 	GameObject::PreRender();
-
 	//only thing I need to do is tell the shader about my texture
 
 	glEnable(GL_TEXTURE_2D);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
+
 
 	//TODO: this does sort of replicate stuff in the AIMesh class, could we make them more compatible.
 	

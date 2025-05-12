@@ -15,6 +15,7 @@
 #include "OrthoCamera.h"
 #include "DogCam.h"
 
+
 #include <assert.h>
 
 
@@ -382,7 +383,7 @@ void Scene::Load(ifstream& _file)
 		_file >> dummy >> type; _file.ignore(256, '\n');
 		GameObject* newGO = GameObjectFactory::makeNewGO(type);
 		newGO->Load(_file);
-		
+	
 
 		m_GameObjects.push_back(newGO);
 

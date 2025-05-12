@@ -16,6 +16,9 @@ out SimplePacket {
 } outputVertex;
 
 void main(void) {
+
+    //use glRotatef, glTranslatef, glScalef
+
     // Pass texture coordinates
     outputVertex.texCoord = vertexTexCoord;
 
@@ -28,14 +31,15 @@ void main(void) {
     outputVertex.surfaceWorldPos = worldCoord.xyz;
 
     // Apply a sine wave based on world-space x, z coordinates and time
-    float wave = sin(worldCoord.x * 5.0 + worldCoord.z * 10.0 + time) * 0.1;
+    float wave = sin(worldCoord.x * 5.0 + worldCoord.z * 10.0 + time) * 0.15;
 
     // Adjust the vertex position with the wave effect
     vec3 wavyPos = vertexPos + vec3(0.0, wave, 0.0);
 
     // Transform the adjusted position to world coordinates
     worldCoord = modelMatrix * vec4(wavyPos, 1.0);
-
+    
+    
     // Transform to clip space
     gl_Position = projMatrix * viewMatrix * worldCoord;
 }

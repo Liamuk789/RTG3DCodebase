@@ -76,8 +76,7 @@ void main(void) {
         }
     }
 
-    // Torch light calculations
-    // Torch light calculations
+    //Torch light calculations
 for (int i = 0; i < numTorchLights; i++) {
     vec3 surfaceToLightVec = torchLights[i].torPos - inputFragment.surfaceWorldPos;
     vec3 surfaceToLightNormalised = normalize(surfaceToLightVec);
