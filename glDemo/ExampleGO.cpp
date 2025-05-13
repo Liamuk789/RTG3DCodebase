@@ -49,8 +49,8 @@ void ExampleGO::PreRender()
 
 	//TODO: this does sort of replicate stuff in the AIMesh class, could we make them more compatible.
 	
-	//DO NORMAL MAPS
 	
+	//normal maps
 	if (normalNeeded)
 	{
 		glActiveTexture(GL_TEXTURE1);
