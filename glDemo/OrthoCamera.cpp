@@ -113,7 +113,6 @@ void OrthoCamera::Move(glm::vec3 _d, float _dt)
 	m_pos += (forward * _d.z + right * _d.x) * speed;
 	m_lookAt += (forward * _d.z + right * _d.x) * speed;
 
-	calculateDerivedValues();
 }
 
 void OrthoCamera::setAspect(float _aspect) {

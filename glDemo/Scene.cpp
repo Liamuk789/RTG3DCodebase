@@ -161,6 +161,7 @@ Shader* Scene::GetShader(string _shaderName)
 
 void Scene::Render() {
 
+	//Time needed to pass into shaders for animation
 	static float elaspedTime = 0.0f;
 	elaspedTime += 0.01f;
 

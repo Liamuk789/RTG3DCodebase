@@ -64,8 +64,9 @@ void Wandering::moveDirection(std::vector<MovementDirection> allowedDirections)
 {
 	int randomIndex = rand() % allowedDirections.size();
 	MovementDirection chosenDirection = allowedDirections[randomIndex];
+	string name = GetName();
 	//show the random direction
-	cout << "Random Direction: " << randomIndex << endl;
+	cout << name << " has chosen random Direction: " << randomIndex << endl;
 	switch (chosenDirection)
 	{
 	case MovementDirection::UP:

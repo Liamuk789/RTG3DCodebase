@@ -46,6 +46,7 @@ void TorchLight::Tick(float _dt)
 	   // Update the time accumulator for the current torch
 	   timeAccumulators[i] += _dt;
 
+
 	   // Smooth sine wave oscillation for a natural flicker
 	   float sineWave = sin(timeAccumulators[i] * 2.0f) * 0.1f; // Frequency and amplitude
 
@@ -56,9 +57,9 @@ void TorchLight::Tick(float _dt)
 	   float flickerEffect = sineWave + randomFlicker;
 
 	   // Apply the flicker effect to the torchlight's color
-	   (*globalTorchLightPos)[i].m_col.x = clamp((*globalTorchLightPos)[i].m_col.x + flickerEffect, 0.8f, 1.0f); // Red channel
-	   (*globalTorchLightPos)[i].m_col.y = clamp((*globalTorchLightPos)[i].m_col.y + flickerEffect, 0.4f, 0.6f); // Green channel
-	   (*globalTorchLightPos)[i].m_col.z = 0.0f; // Blue channel remains 0 for a fiery look
+	   (*globalTorchLightPos)[i].m_col.x = clamp((*globalTorchLightPos)[i].m_col.x + flickerEffect, 0.8f, 1.0f);
+	   (*globalTorchLightPos)[i].m_col.y = clamp((*globalTorchLightPos)[i].m_col.y + flickerEffect, 0.4f, 0.6f);
+	   (*globalTorchLightPos)[i].m_col.z = 0.0f;
    }  
 }
 

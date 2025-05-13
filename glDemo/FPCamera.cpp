@@ -117,20 +117,17 @@ void FPCamera::Move(glm::vec3 _d, float _dt)
 
 	//Work out right and forward directions
 	glm::vec3 forward = glm::normalize(m_lookAt - m_pos);
-	//locking the Y so the camera cannot move up or down
-	forward.y = 0.0f;
-	//had to normalize the forward vector again as it was effecting the camera move
-	//speed depending on how high/low you were looking
+	//stop movement along the Y
+	forward.y = 0.0f; 
 	forward = glm::normalize(forward);
-	glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));
-	float speed = cam_Speed * _dt;
-	//Update the position
-	m_pos += forward * _d.z * speed;
-	m_pos += right * _d.x * speed;
 
-	//Update the lookat also to keep correct direction
-	m_lookAt += forward * _d.z;
-	m_lookAt += right * _d.x;
+	glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));
+
+	float speed = cam_Speed * _dt;
+
+	//Move both the position and the lookAt point
+	m_pos += (forward * _d.z + right * _d.x) * speed;
+	m_lookAt += (forward * _d.z + right * _d.x) * speed;
 
 	//Update the view matrix is done in Tick()
 	//m_viewMatrix = glm::lookAt(m_pos, m_lookAt, glm::vec3(0, 1, 0));
