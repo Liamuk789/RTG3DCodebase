@@ -177,11 +177,6 @@ FILE: Assets\\ghost\\source\\ghost.obj
 }
 {
 TYPE: AI
-NAME: DEMON
-FILE: Assets\\demon\\source\\demon.obj
-}
-{
-TYPE: AI
 NAME: CUBEHIGH
 FILE: Assets\\cube_highpoly.obj
 }
