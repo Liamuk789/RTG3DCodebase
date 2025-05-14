@@ -235,7 +235,7 @@ void BuildDungeon::Render()
     }
 
 }
-
+//old VVVVVVVVVVVVVVVVVVVVVVVVVVV
 //Storing wall locations to send to wandering objects
 vector<vec3> BuildDungeon::storeWallLocs()
 {
