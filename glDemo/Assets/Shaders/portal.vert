@@ -17,7 +17,7 @@ out SimplePacket {
 
 void main(void) {
 
-    //use glRotatef, glTranslatef, glScalef
+    //try to use glRotatef, glTranslatef, glScalef
 
     // Pass texture coordinates
     outputVertex.texCoord = vertexTexCoord;

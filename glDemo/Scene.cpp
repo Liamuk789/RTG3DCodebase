@@ -44,7 +44,9 @@ void Scene::Update(float _dt, float _screenWidth, float _screenHeight)
 	for (list<Camera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
 	{
 		(*it)->Tick(_dt, _screenWidth, _screenHeight);
-		if ((*it)->GetType() == "DOGCAM")
+
+		//trying to get dogcam to work with exampleGO object
+		/*if ((*it)->GetType() == "DOGCAM")
 		{
 			DogCam* dogCam = dynamic_cast<DogCam*>(*it);
 			ExampleGO* exampleGO = dynamic_cast<ExampleGO*>(GetGameObject("P_ALIEN"));
@@ -53,7 +55,7 @@ void Scene::Update(float _dt, float _screenWidth, float _screenHeight)
 				dogCam->SetExampleGO(*exampleGO);
 				dogCam->Tick(_dt, _screenWidth, _screenHeight);
 			}
-		}
+		}*/
 		
 	}
 
@@ -240,7 +242,11 @@ void Scene::SetShaderUniforms(GLuint _shaderprog)
 	for (list<Light*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
 	{
 
-		if ((*it)->GetType() == "POINT")
+		(*it)->SetRenderValues(_shaderprog);
+
+		//thought I would need to give the type of camera and setRenderValues
+		//different for each
+		/*if ((*it)->GetType() == "POINT")
 		{
 			(*it)->SetRenderValues(_shaderprog);
 		}
@@ -257,7 +263,7 @@ void Scene::SetShaderUniforms(GLuint _shaderprog)
 			(*it)->SetRenderValues(_shaderprog);
 		}
 		else
-			(*it)->SetRenderValues(_shaderprog);
+			(*it)->SetRenderValues(_shaderprog);*/
 	}
 
 }

@@ -19,8 +19,8 @@ struct SpotLight {
     vec3 spotDir;
     vec3 spotCol;
     vec3 spotAtt;
-    float spotCutoff; // Cosine of the cutoff angle
-    float spotOuterCutoff; // Cosine of the outer cutoff angle for smooth edges
+    float spotCutoff;
+    float spotOuterCutoff;
 };
 
 uniform int numPointLights;
@@ -90,7 +90,8 @@ for (int i = 0; i < numTorchLights; i++) {
         float kq = torchLights[i].torAtt.z;
 
         float atten = 1.0 / (kc + kl * torD + kq * (torD * torD));
-        //removed torchLights[i].torCol to stop the colour change of the edges of the PORTAL shader
+
+        //removed torchLights[i].torCol to stop the colour change of the edges of the PORTAL shader----------------------------------
         //objects but still able to illuminate them.
         totalTorchDiffuse += surfaceColour.rgb * torL * atten;
     }
